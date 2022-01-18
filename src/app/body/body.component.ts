@@ -8,20 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class BodyComponent implements OnInit {
   employee=[
     {
-      name:'Nguyễn văn a',
+      name:'văn a',
       address:'quận 9',
       phone:'0291207102',
-      img:'/assets/hinh1.jpg'
+      img:'hinh1.jpg'
 
     },
     {
-      name:'Nguyễn văn b',
+      name:' văn b',
       address:'quận 9',
       phone:'0291207102',
-      img:'/assets/hinh2.jpg',
+      img:'hinh2.jpg',
 
     }
   ]
+  public HienThiFullName(){
+
+  }
   constructor() { }
 
   ngOnInit() {
