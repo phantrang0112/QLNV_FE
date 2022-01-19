@@ -1,1 +1,38 @@
-<p>add-employee works!</p>
+<div class="container">
+  <h4> Thêm nhân viên</h4>
+  <!-- <label for="name">Name: </label>
+  <input id="name" type="text" [formControl]="name"/> -->
+
+  <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)"
+    class="alert alert-danger">
+
+    <div *ngIf="name.errors?.['required']">
+      Name is required.
+    </div>
+    <div *ngIf="name.errors?.['minlength']">
+      Name must be at least 4 characters long.
+    </div>
+    <div *ngIf="name.errors?.['forbiddenName']">
+      Name cannot be Bob.
+    </div>
+    </div> -->
+    <!-- <p>Value: {{ name.value }}</p> -->
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+
+      <label for="first-name">Name: </label>
+      <input id="first-name" type="text" formControlName="name" required/>
+      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+        can nhap ten
+      </span>
+      <br>
+      <br>
+      <label for="last-name">Phone: </label>
+      <input id="last-name" type="text" formControlName="phone" required>
+      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+        can nhap so dien thoai
+      </span>
+      <br>
+      <button type="submit" [disabled]="!addEmployeeForm.valid">Submit</button>
+    </form>
+    <!-- <button (click)="updateName()">Update Name</button> -->
+  </div>

@@ -1,0 +1,10 @@
+{
+    "Employee": [
+      { "id": 1, "name": "Trang", "phone": "0327248445" },
+      { "id": 2, "name": "Trang1", "phone": "0327248334" }
+    ],
+    "Role": [
+      { "id": 1, "role": "Admin" },
+      { "id": 2, "role": "User" }
+    ]
+  }

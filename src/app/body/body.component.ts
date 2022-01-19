@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppserviceService } from '../services/appservice.service';
 
 @Component({
   selector: 'app-body',
@@ -6,28 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
-  employee=[
-    {
-      name:'văn a',
-      address:'quận 9',
-      phone:'0291207102',
-      img:'hinh1.jpg'
+  employee;
+  constructor(private service: AppserviceService){
+    this.employee= service.employee;
+  }
 
-    },
-    {
-      name:' văn b',
-      address:'quận 9',
-      phone:'0291207102',
-      img:'hinh2.jpg',
-
-    }
-  ]
-  public HienThiFullName(){
+  ngOnInit(): void {
 
   }
-  constructor() { }
-
-  ngOnInit() {
+  public tangTuoi(){
+    this.service.numberItem++;
+    this.employee[0].age=this.service.numberItem;
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppserviceService } from 'src/app/services/appservice.service';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   title="danh sách nhân viên";
-  numberItem= 3;
-  constructor() { }
+  numberItem;
+  constructor(private appService: AppserviceService) {
+    this.numberItem= appService.tongSoNhanVien();
+   }
 
   ngOnInit() {
   }
