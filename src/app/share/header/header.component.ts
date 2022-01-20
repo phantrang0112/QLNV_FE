@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppserviceService } from 'src/app/services/appservice.service';
+import { ServerhttpService } from 'src/app/services/serverhttp.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,22 @@ import { AppserviceService } from 'src/app/services/appservice.service';
 export class HeaderComponent implements OnInit {
   title="danh sách nhân viên";
   numberItem;
-  constructor(private appService: AppserviceService) {
-    this.numberItem= appService.tongSoNhanVien();
+  employee;
+  constructor(private appService: AppserviceService, private serverHttp: ServerhttpService) {
+
+
    }
 
   ngOnInit() {
+    // this.numberItem= this.appService.tongSoNhanVien();
+    console.log(this.numberItem+"ngonnit");
+    this.serverHttp.getProfile().subscribe((data)=> {
+      console.log(data);
+      console.log("hitrang0");
+      this.employee= data;
+      this.numberItem= this.employee.length;
+      console.log(this.numberItem)
+    });
   }
 
 }

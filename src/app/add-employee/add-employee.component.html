@@ -17,19 +17,41 @@
     </div>
     </div> -->
     <!-- <p>Value: {{ name.value }}</p> -->
-    <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+    <h2  appMyColor>{{message}}</h2>
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
 
       <label for="first-name">Name: </label>
       <input id="first-name" type="text" formControlName="name" required/>
       <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
-        can nhap ten
+        *Nhập Tên nhân viên!
       </span>
       <br>
       <br>
       <label for="last-name">Phone: </label>
       <input id="last-name" type="text" formControlName="phone" required>
       <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
-        can nhap so dien thoai
+        *Thêm số điện thoại!
+      </span>
+      <br>
+      <br>
+      <label for="last-name">Address: </label>
+      <input id="last-name" type="text" formControlName="address" required>
+      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+        *Cần nhập địa chỉ!
+      </span>
+      <br>
+      <br>
+      <label for="last-name">img: </label>
+      <input id="last-name" type="text" formControlName="img" required>
+      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+        *Thêm hình!
+      </span>
+      <br>
+      <br>
+      <label for="last-name">age: </label>
+      <input id="last-name" type="text" formControlName="age" required>
+      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+        *Thêm tuổi!
       </span>
       <br>
       <button type="submit" [disabled]="!addEmployeeForm.valid">Submit</button>

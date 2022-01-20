@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.componet';
 import { MyColorDirective } from './directives/my-color.directive';
 import { FormLoginComponent } from './form-login/form-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
             AppComponent,
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
             BrowserModule,
           AppRoutingModule,
-          ReactiveFormsModule
+          ReactiveFormsModule,
+          HttpClientModule
           ],
   providers: [],
   bootstrap: [AppComponent]

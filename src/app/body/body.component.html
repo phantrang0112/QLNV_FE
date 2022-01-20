@@ -23,14 +23,16 @@
       </div>
 
       <div class="col right">
-        <a style="color: rgb(1, 228, 31);  margin-right: 20px;"class="btn btn-success" (click)="tangTuoi()"> <i
+        <a style="color: rgb(1, 228, 31);  margin-right: 20px;"class="btn btn-success" [routerLink]="['/addEmployee']" routerLinkActive="router-link-active" > <i
             style="font-size:x-large;" class="fa fa-pencil"
             aria-hidden="true"></i></a>
         <a style="color: rgb(51, 9, 9);" class="btn
           btn-danger"><i style="font-size:x-large;" class="fa fa-trash"
-            aria-hidden="true"></i></a>
+            aria-hidden="true"(click)="tangTuoi()"></i></a>
       </div>
+
     </li>
   </ul>
+  <!-- <p >{{employee|json}}</p> -->
 </section>
 

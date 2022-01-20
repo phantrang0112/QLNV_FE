@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormControlName, FormGroup } from '@angular/forms';
+import { ServerhttpService } from '../services/serverhttp.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -8,17 +9,40 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class AddEmployeeComponent implements OnInit {
 //  public name=  new FormControl('');
+  employee;
+  message;
   addEmployeeForm = new FormGroup({
     name: new FormControl(''),
+    address:new FormControl(''),
+    img:new FormControl(''),
+    age: new FormControl(''),
     phone: new FormControl(''),
   });
-  constructor() { }
+  constructor(private serverHttp: ServerhttpService) { }
 
   ngOnInit() {
+    this.serverHttp.getProfile().subscribe((data)=> {
+      console.log(data);
+      this.employee= data;
+    });
   }
-  // public updateName(){
-  //   this.name.setValue("Phan Thi TRang")
-  // }
+  public addEmployee(){
+    const newEmployee=this.addEmployeeForm.value;
+     const eemployee=
+      {
+        name:'văn f',
+        address:'quận 9',
+        phone:'0291207102',
+        img:'hinh1.jpg',
+        age: null,
+
+      }
+      console.log(newEmployee);
+      this.serverHttp.postEmployee(newEmployee).subscribe((data)=>{
+        console.log(data);
+        this.message="thêm thành công";
+      })
+      }
   public onSubmit(){
     console.log("hi trang");
   }

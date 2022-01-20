@@ -1,10 +1,62 @@
 {
-    "Employee": [
-      { "id": 1, "name": "Trang", "phone": "0327248445" },
-      { "id": 2, "name": "Trang1", "phone": "0327248334" }
-    ],
-    "Role": [
-      { "id": 1, "role": "Admin" },
-      { "id": 2, "role": "User" }
-    ]
-  }
+  "Employee": [
+    {
+      "id": 1,
+      "name": "văn a",
+      "address": "quận 9",
+      "phone": "0291207102",
+      "img": "hinh1.jpg",
+      "age": null
+    },
+    {
+      "id": 2,
+      "name": "văn B",
+      "address": "quận 9",
+      "phone": "0291207102",
+      "img": "hinh2.jpg",
+      "age": null
+    },
+    {
+      "id": 3,
+      "name": "Thị C",
+      "address": "quận 9",
+      "phone": "0291207102",
+      "img": "hinh1.jpg",
+      "age": null
+    },
+    {
+      "name": "văn f",
+      "address": "quận 9",
+      "phone": "0291207102",
+      "img": "hinh1.jpg",
+      "age": null,
+      "id": 4
+    },
+    {
+      "name": "trang",
+      "address": "quận 9",
+      "img": "hinh1.jpg",
+      "age": "18",
+      "phone": "0327248445",
+      "id": 5
+    },
+    {
+      "name": "trang",
+      "address": "HCM",
+      "img": "hinh2.jpg",
+      "age": "17",
+      "phone": "0327248445",
+      "id": 6
+    }
+  ],
+  "Role": [
+    {
+      "id": 1,
+      "role": "Admin"
+    },
+    {
+      "id": 2,
+      "role": "User"
+    }
+  ]
+}
