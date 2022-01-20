@@ -6,7 +6,7 @@ import { FormLoginComponent } from "./form-login/form-login.component";
 
 const routes: Routes = [
   { path: '', component: BodyComponent},
-  { path: 'addEmployee', component: AddEmployeeComponent},
+  { path: 'employeeForm/:id', component: AddEmployeeComponent},
   { path: 'formLogin', component: FormLoginComponent},
   // { path: '**', pathMatch:'full', redirectTo: 'routePath' }
 ];

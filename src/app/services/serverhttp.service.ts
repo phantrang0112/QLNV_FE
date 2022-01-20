@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 export class ServerhttpService {
 
-  private  REST_API_SERVER= "http://localhost:3000";
+  private  REST_API_SERVER= "http://localhost:3000";// server của json
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -17,13 +17,30 @@ export class ServerhttpService {
     })
   };
   constructor(private httpclient: HttpClient) { }
+  // lấy toàn bộ  nhân viên
   public getProfile(): Observable<any> {
     const url= `${this.REST_API_SERVER}/Employee`;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
+  // lấy 1 nhân viên thông qua id
+  public getEmployeeId(employeeId: number){
+    const url= `${this.REST_API_SERVER}/Employee/`+employeeId;
+    return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
+  }
+  // thêm 1 nhân viên
   public postEmployee(data): Observable<any> {
     const url= `${this.REST_API_SERVER}/Employee`;
     return this.httpclient.post<any>(url, data , this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
+  }
+  // Chinh sửa 1 nhân viên
+  public editEmployee(employeeId: number, data): Observable<any> {// truyền vào id và giá trị của data
+    const url= `${this.REST_API_SERVER}/Employee/`+employeeId; // thêm id đằng sau để trỏ tới đối tượng có id đó
+    return this.httpclient.put<any>(url, data , this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
+  }
+  // Xóa 1 nhân viên thông qua id
+  public deleteEmployee(employeeId: number) {
+    const url= `${this.REST_API_SERVER}/Employee/`+employeeId;
+    return this.httpclient.delete<any>(url).pipe(catchError(this.handleError));// Nhớ import catchError
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppserviceService } from '../services/appservice.service';
 import { ServerhttpService } from '../services/serverhttp.service';
 
@@ -9,7 +10,9 @@ import { ServerhttpService } from '../services/serverhttp.service';
 })
 export class BodyComponent implements OnInit {
   employee;
-  constructor(private service: AppserviceService,private serverHttp: ServerhttpService){
+  message;
+
+  constructor(private service: AppserviceService,private serverHttp: ServerhttpService,private router: Router){
     // this.employee= service.employee;
   }
 
@@ -19,9 +22,24 @@ export class BodyComponent implements OnInit {
       this.employee= data;
     });
   }
+  private loadData(){
+    this.serverHttp.getProfile().subscribe((data)=> {
+      console.log(data);
+      this.employee= data;
+    });
+  }
   public tangTuoi(){
     this.service.numberItem++;
     this.employee[0].age=this.service.numberItem;
   }
-
+  public xoaEmployee(employeeId){
+    this.serverHttp.deleteEmployee(employeeId).subscribe((data)=>{
+      console.log('delete',data);
+      this.message="xóa thành công!";
+      this.loadData();
+    })
+  }
+  public editEmployee(employeeId){
+    this.router.navigate(['employeeForm',employeeId]);// sử dụng dịch vụ router để chuyển hướng
+  }
 }

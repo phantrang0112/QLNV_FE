@@ -32,9 +32,10 @@ export class AppserviceService {
   //   }
   // ]
   public numberItem=0;
+  constructor( private serverHttp: ServerhttpService) { }
   public datas;
-  constructor( private serverHttp: ServerhttpService) {
-    this.datas= this.serverHttp.getProfile().subscribe((data)=> {
+  public tongSoNhanVien(): number{
+   this.datas= this.serverHttp.getProfile().subscribe((data)=> {
       console.log(data);
       console.log("hitrang0");
       this.employee= data;
@@ -42,10 +43,6 @@ export class AppserviceService {
       console.log(this.numberItem+"http");
       return this.numberItem;
     });
-   }
-
-  public tongSoNhanVien(): number{
-
     console.log("hitrang1"+this.numberItem+ this.datas);
     return this.numberItem;
   }
