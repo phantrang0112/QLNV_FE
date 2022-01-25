@@ -1,6 +1,8 @@
 
 <section class="container">
+
   <h3 appMyColor>{{message}}</h3>
+  <p class="count " style="text-align: right;" appMyColor>{{numberItem}} Nhân viên</p>
   <a [routerLink]="['/employeeForm',0]" routerLinkActive="router-link-active"  ><i style="font-size:x-large; color: red;" class="fa fa-plus"
       aria-hidden="true"></i></a>
   <ul class="products">

@@ -13,6 +13,7 @@ export class AddEmployeeComponent implements OnInit {
   employee;
   message;
   id=0;
+
   addEmployeeForm = new FormGroup({
     name: new FormControl(''),
     address:new FormControl(''),

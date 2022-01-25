@@ -11,7 +11,7 @@ import { ServerhttpService } from '../services/serverhttp.service';
 export class BodyComponent implements OnInit {
   employee;
   message;
-
+  numberItem;
   constructor(private service: AppserviceService,private serverHttp: ServerhttpService,private router: Router){
     // this.employee= service.employee;
   }
@@ -20,7 +20,10 @@ export class BodyComponent implements OnInit {
     this.serverHttp.getProfile().subscribe((data)=> {
       console.log(data);
       this.employee= data;
+      this.numberItem= this.employee.length;
+      console.log(this.numberItem)
     });
+
   }
   // Load lại data
   private loadData(){
@@ -29,6 +32,7 @@ export class BodyComponent implements OnInit {
       console.log(data);
 
       this.employee= data;
+      this.numberItem= this.employee.length;
       //
     });
   }

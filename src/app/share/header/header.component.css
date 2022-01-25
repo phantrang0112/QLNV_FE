@@ -1,0 +1,19 @@
+header .breadcrumb {
+  color: #7d7d7d;
+}
+
+header .breadcrumb li {
+  float: left;
+  padding: 0 6px;
+  height: 20px;
+  line-height: 20px;
+}
+
+header .breadcrumb li:first-child {
+  padding-left: 2px;
+}
+
+header .breadcrumb li:not(:last-child)::after {
+  content: " \276f";
+  padding-left: 8px;
+}

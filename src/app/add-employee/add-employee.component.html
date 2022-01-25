@@ -19,42 +19,53 @@
     <!-- <p>Value: {{ name.value }}</p> -->
     <h2  appMyColor>{{message}}</h2>
     <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
-
-      <label for="first-name">Name: </label>
-      <input id="first-name" type="text" formControlName="name" required/>
-      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+    <div class="row">
+      <label for="first-name" class="col-2">Name: </label>
+      <input id="first-name" class="col-6"  type="text" formControlName="name" required/>
+      <span class="col-4" *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
         *Nhập Tên nhân viên!
       </span>
+    </div>
+
       <br>
       <br>
-      <label for="last-name">Phone: </label>
-      <input id="last-name" type="text" formControlName="phone" required>
-      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
-        *Thêm số điện thoại!
-      </span>
+      <div class="row">
+        <label class="col-2" for="last-name" >Phone: </label>
+        <input class="col-6" id="last-name"  type="text" formControlName="phone" required>
+        <span class="col-4" *ngIf="addEmployeeForm.controls.phone.invalid" appMyColor>
+          *Thêm số điện thoại!
+        </span>
+      </div>
       <br>
       <br>
-      <label for="last-name">Address: </label>
-      <input id="last-name" type="text" formControlName="address" required>
-      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+      <div class="row">
+      <label for="last-name" class="col-2">Address: </label>
+      <input id="last-name" class="col-6" type="text" formControlName="address" required>
+      <span class="col-4"  *ngIf="addEmployeeForm.controls.address.invalid" appMyColor>
         *Cần nhập địa chỉ!
       </span>
+      </div>
       <br>
       <br>
-      <label for="last-name">img: </label>
-      <input id="last-name" type="text" formControlName="img" required>
-      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+      <div class="row">
+      <label class="col-2" for="last-name">img: </label>
+      <input class="col-6" id="last-name" type="text" formControlName="img" required>
+      <span class="col-4"  *ngIf="addEmployeeForm.controls.img.invalid" appMyColor>
         *Thêm hình!
       </span>
+    </div>
       <br>
       <br>
-      <label for="last-name">age: </label>
-      <input id="last-name" type="text" formControlName="age" required>
-      <span *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
+      <div class="row">
+      <label class="col-2" for="last-name">age: </label>
+      <input class="col-6" id="last-name" type="text" formControlName="age" required>
+      <span class="col-4"  *ngIf="addEmployeeForm.controls.age.invalid" appMyColor>
         *Thêm tuổi!
       </span>
+    </div>
       <br>
-      <button type="submit" [disabled]="!addEmployeeForm.valid">Submit</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!addEmployeeForm.valid">Submit</button>
     </form>
+
     <!-- <button (click)="updateName()">Update Name</button> -->
   </div>

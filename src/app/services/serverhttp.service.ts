@@ -29,7 +29,7 @@ export class ServerhttpService {
   }
   // lấy 1 nhân viên thông qua id
   public getEmployeeId(employeeId: number){
-    const url= `${this.REST_API_SERVER}/Employee/`+employeeId;
+    const url= `${this.REST_API_SERVER1}/Employee/`+employeeId;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
   // thêm 1 nhân viên
