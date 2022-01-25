@@ -22,17 +22,23 @@ export class BodyComponent implements OnInit {
       this.employee= data;
     });
   }
+  // Load lại data
   private loadData(){
+    //window.location.reload();
     this.serverHttp.getProfile().subscribe((data)=> {
       console.log(data);
+
       this.employee= data;
+      //
     });
   }
   public tangTuoi(){
     this.service.numberItem++;
     this.employee[0].age=this.service.numberItem;
   }
+  //Xóa 1 nhân viên
   public xoaEmployee(employeeId){
+    console.log(employeeId);
     this.serverHttp.deleteEmployee(employeeId).subscribe((data)=>{
       console.log('delete',data);
       this.message="xóa thành công!";
