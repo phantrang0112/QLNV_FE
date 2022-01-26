@@ -8,8 +8,8 @@ import { ServerhttpService } from 'src/app/services/serverhttp.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  title="danh sách nhân viên";
-  numberItem;
+  title="Danh sách nhân viên";
+
   employee;
   constructor(private appService: AppserviceService, private serverHttp: ServerhttpService) {
 
@@ -18,14 +18,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     // this.numberItem= this.appService.tongSoNhanVien();
-    console.log(this.numberItem+"ngonnit");
-    this.serverHttp.getProfile().subscribe((data)=> {
-      console.log(data);
-      console.log("hitrang0");
-      this.employee= data;
-      this.numberItem= this.employee.length;
-      console.log(this.numberItem)
-    });
+
   }
 
 }

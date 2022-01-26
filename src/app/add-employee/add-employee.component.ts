@@ -51,6 +51,7 @@ export class AddEmployeeComponent implements OnInit {
     if(this.id>0){
       this.serverHttp.editEmployee(this.id,newEmployee).subscribe((data)=>{
         console.log(data);
+        this.message="cập nhật nhân viên thành công";
         this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
       })
 

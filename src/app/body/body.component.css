@@ -78,11 +78,11 @@ input {
   outline: none;
 }
 
-.container {
-  width: 90%;
-  margin: 0 auto;
-  overflow: auto;
-}
+
+  .container {
+    width: 75%;
+    max-width: 960px;
+  }
 
 /* --- HEADER --- */
 header.container {
@@ -314,10 +314,7 @@ header .count {
     font-size: 14px;
   }
 
-  .container {
-    width: 75%;
-    max-width: 960px;
-  }
+
 
   .thumbnail,
   .detail {
