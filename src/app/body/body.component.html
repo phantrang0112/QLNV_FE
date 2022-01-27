@@ -2,12 +2,16 @@
 <section class="container">
 
   <h3 appMyColor>{{message}}</h3>
-  <p class="count " style="text-align: right;" appMyColor>{{numberItem}} Nhân viên</p>
-  <a [routerLink]="['/employeeForm',0]" routerLinkActive="router-link-active"  ><i style="font-size:x-large; color: red;" class="fa fa-plus"
+  <p class="count"style="text-align: right;" appMyColor>{{numberItem}} Nhân viên</p>
+  <a [routerLink]="['/employeeForm',0]" routerLinkActive="router-link-active"><i
+      style="font-size:x-large; color: red;" class="fa fa-plus"
       aria-hidden="true"></i></a>
-  <ul class="products">
+  <!-- <ul class="products">
+    <li></li>
     <li class="row" *ngFor="let item of employee">
+
       <div class="col left">
+        <span>STT</span>
         <div class="thumbnail">
           <a href="#">
             <img src="/assets/{{item.img}}" style=" width: 100px;height: 150px;" alt="" />
@@ -19,9 +23,7 @@
             Địa chỉ : {{item.address}}
           </div>
           <div class="phone">{{item.phone}}</div>
-        </div>
-        <div class="col ">
-          <p >{{item.age}} </p>
+          <div> {{item.age}}</div>
         </div>
       </div>
 
@@ -35,7 +37,55 @@
           </div>
 
     </li>
-  </ul>
+  </ul> -->
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="stt">
+        <th mat-header-cell *matHeaderCellDef> STT </th>
+        <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+      </ng-container>
+      <ng-container matColumnDef="img">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element"> <a href="#">
+            <img src="/assets/{{element.img}}" style="width: 100px;height:
+              100px; contain:content;" alt="" />
+          </a> </td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Họ và Tên </th>
+        <td mat-cell *matCellDef="let element"> {{element.name|uppercase}} </td>
+      </ng-container>
+
+      <!-- phone Column -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Số điện thoại </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef> Tuổi </th>
+        <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+      </ng-container>
+      <!-- icon column -->
+      <ng-container matColumnDef="about">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+          <a style="color: rgb(1, 228, 31); margin-right: 20px;"(click)="editEmployee(element.id)">
+            <i style="font-size:x-large;" class="fa fa-pencil" aria-hidden="true"></i></a>
+          <a style="color: rgb(51, 9, 9);"(click)="xoaEmployee(element.id)"><i style="font-size:x-large;"class="fa fa-trash"aria-hidden="true"></i></a> </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[1, 1, 1]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
   <!-- <p >{{employee|json}}</p> -->
 </section>
-

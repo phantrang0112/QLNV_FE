@@ -47,6 +47,10 @@ export class ServerhttpService {
     const url= `${this.REST_API_SERVER1}/Employee/`+employeeId;
     return this.httpclient.delete<any>(url).pipe(catchError(this.handleError));// Nhớ import catchError
   }
+  public getEmployeePage(page: number, page_size: number){
+    const url= `${this.REST_API_SERVER1}/Employee/`+page+ page_size;
+    return this.httpclient.get<any>(url).pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

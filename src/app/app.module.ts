@@ -10,6 +10,11 @@ import { MyColorDirective } from './directives/my-color.directive';
 import { FormLoginComponent } from './form-login/form-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatInputModule} from '@angular/material/input';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
             AppComponent,
@@ -26,9 +31,13 @@ import { HttpClientModule } from '@angular/common/http';
             BrowserModule,
           AppRoutingModule,
           ReactiveFormsModule,
-          HttpClientModule
+          HttpClientModule,
+          MatInputModule,
+          MatFormFieldModule,
+          MatPaginatorModule,
+          MatTableModule
           ],
-  providers: [],
+  providers: [{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
