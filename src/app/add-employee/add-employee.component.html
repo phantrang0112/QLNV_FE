@@ -2,7 +2,6 @@
   <h4> Thêm nhân viên</h4>
   <!-- <label for="name">Name: </label>
   <input id="name" type="text" [formControl]="name"/> -->
-
   <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)"
     class="alert alert-danger">
 
@@ -16,82 +15,72 @@
       Name cannot be Bob.
     </div>
     </div> -->
-    <!-- <p>Value: {{ name.value }}</p> -->
-    <h2  appMyColor>{{message}}</h2>
-    <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
-    <div class="row">
-      <label for="first-name" class="col-2">Name: </label>
-      <input id="first-name" class="col-6"  type="text" formControlName="name" required/>
-      <span class="col-4" *ngIf="addEmployeeForm.controls.name.invalid" appMyColor>
-        *Nhập Tên nhân viên!
-      </span>
-    </div>
-
-      <br>
-      <br>
-      <div class="row">
-        <label class="col-2" for="last-name" >Phone: </label>
-        <input class="col-6" id="last-name"  type="text" formControlName="phone" required>
-        <span class="col-4" *ngIf="addEmployeeForm.controls.phone.invalid" appMyColor>
-          *Thêm số điện thoại!
-        </span>
-      </div>
-      <br>
-      <br>
-      <div class="row">
-      <label for="last-name" class="col-2">Address: </label>
-      <input id="last-name" class="col-6" type="text" formControlName="address" required>
-      <span class="col-4"  *ngIf="addEmployeeForm.controls.address.invalid" appMyColor>
-        *Cần nhập địa chỉ!
-      </span>
-      </div>
-      <br>
-      <br>
-      <div class="row">
-      <label class="col-2" for="last-name">img: </label>
-      <input class="col-6" id="last-name" type="text" formControlName="img" required>
-      <span class="col-4"  *ngIf="addEmployeeForm.controls.img.invalid" appMyColor>
-        *Thêm hình!
-      </span>
-    </div>
-      <br>
-      <br>
-      <div class="row">
-      <label class="col-2" for="last-name">age: </label>
-      <input class="col-6" id="last-name" type="text" formControlName="age" required>
-      <span class="col-4"  *ngIf="addEmployeeForm.controls.age.invalid" appMyColor>
-        *Thêm tuổi!
-      </span>
-      <!-- <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-               placeholder="Ex. pat@example.com" >
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          Email is <strong>required</strong>
-        </mat-error>
-
-      </mat-form-field> -->
-    </div>
-      <br>
-      <button type="submit" class="btn btn-primary" [disabled]="!addEmployeeForm.valid">Submit</button>
-    </form>
-
-    <!-- <button (click)="updateName()">Update Name</button> -->
-    <!-- <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-             placeholder="Ex. pat@example.com">
-      <mat-hint>Errors appear instantly!</mat-hint>
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Please enter a valid email address
+  <!-- <p>Value: {{ name.value }}</p> -->
+  <h2 appMyColor>{{message}}</h2>
+  <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Họ và tên</mat-label>
+      <input id="first-name" class="col-6" type="text" matInput
+        formControlName="name" [errorStateMatcher]="matcher" />
+      <mat-error *ngIf="addEmployeeForm.controls.name.hasError('required')">
+        *Thêm <strong>họ và tên!</strong>
       </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field> -->
-  </div>
+    </mat-form-field>
 
+    <br>
+    <br>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Số điện thoại</mat-label>
+      <input class="col-6" id="last-name" type="text" matInput
+        formControlName="phone" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('maxLength')!=null">
+        *Số điện thoại phải có 10 chữ số
+      </mat-error>
+
+      <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('required')">
+        *Thêm <strong>số điện thoại!</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Địa chỉ</mat-label>
+      <input id="last-name" class="col-6" type="text" matInput
+        formControlName="address" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="addEmployeeForm.controls.address.hasError('required')">
+        *Thêm <strong>địa chỉ!</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Img</mat-label>
+      <input class="col-6" id="last-name" type="text" matInput
+        formControlName="img" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="addEmployeeForm.controls.img.hasError('required')">
+        *Thêm <strong>hình!</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Age</mat-label>
+      <input type="number" matInput formControlName="age"
+        [errorStateMatcher]="matcher">
+      <mat-error *ngIf="addEmployeeForm.controls.age.hasError('min') ||
+        addEmployeeForm.controls.age.hasError('max')">
+        *Tuổi phải lớn hơn 0 và nhỏ hơn 100!
+      </mat-error>
+      <mat-error *ngIf="addEmployeeForm.controls.age.hasError('required')">
+        *Thêm <strong>Tuổi!</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <br>
+    <button type="submit" class="btn btn-primary"
+      [disabled]="!addEmployeeForm.valid">Submit</button>
+  </form>
+
+  <!-- <button (click)="updateName()">Update Name</button> -->
+</div>

@@ -48,7 +48,7 @@ export class ServerhttpService {
     return this.httpclient.delete<any>(url).pipe(catchError(this.handleError));// Nhớ import catchError
   }
   public getEmployeePage(page: number, page_size: number){
-    const url= `${this.REST_API_SERVER1}/Employee/`+page+ page_size;
+    const url= `${this.REST_API_SERVER1}/Employee/getPage`+`?page=`+page+`&page-size=`+ page_size;
     return this.httpclient.get<any>(url).pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {

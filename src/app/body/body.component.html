@@ -50,7 +50,7 @@
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element"> <a href="#">
             <img src="/assets/{{element.img}}" style="width: 100px;height:
-              100px; contain:content;" alt="" />
+              100px; object-fit :cover" alt="" />
           </a> </td>
       </ng-container>
       <!-- Name Column -->
@@ -81,11 +81,40 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-    <mat-paginator [pageSizeOptions]="[1, 1, 1]"
+    <div class="mt-3">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-md-end justify-content-center">
+          <li class="page-item"><a class="page-link" (click)="firtPage()">Đầu</a></li>
+          <li class="page-item"><a class="page-link" (click)="prviousPage()">Trang trước</a></li>
+          <!--                    <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+          <li class="page-item col-md-1 col-2  px-0">
+            <!--                        <input class="form-control shadow-none rounded-0" type="text" placeholder="2/5">-->
+            <div class="input-group">
+              <input type="number" min="1" [max]="totalPagination" class="form-control text-right rounded-0"
+                     placeholder="2" aria-label="Username"
+                     aria-describedby="basic-addon1" [value]="indexPagination"
+                     (change)="indexPaginationChage($event.target.value)">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">{{totalPagination}}</span>
+              </div>
+            </div>
+          </li>
+          <li class="page-item">
+            <button class="btn btn-primary rounded-0" (click)="findPaginnation()">Đi</button>
+          </li>
+          <!-- <li class="page-item"><a class="page-link" (click)="nextPage()">Trang kế</a></li> -->
+          <li class="page-item"><a class="page-link" (click)="lastPage()">Cuối</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!-- <mat-paginator [pageSizeOptions]="[5,10, 20]"
+    [length]="pageEvent.length"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    aria-label="Select page"
       showFirstLastButtons
       aria-label="Select page of periodic elements">
-    </mat-paginator>
+    </mat-paginator> -->
   </div>
   <!-- <p >{{employee|json}}</p> -->
 </section>

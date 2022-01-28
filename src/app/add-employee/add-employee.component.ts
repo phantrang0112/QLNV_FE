@@ -16,11 +16,11 @@ export class AddEmployeeComponent implements OnInit {
   id=0;
 
   addEmployeeForm = new FormGroup({
-    name: new FormControl(''),
-    address:new FormControl(''),
-    img:new FormControl(''),
-    age: new FormControl(''),
-    phone: new FormControl(''),
+    name: new FormControl('',[Validators.required]),
+    address:new FormControl('',[Validators.required]),
+    img:new FormControl('',[Validators.required]),
+    age: new FormControl('',[Validators.required,Validators.min(1),Validators.max(100)]),
+    phone: new FormControl('',[Validators.required,Validators.maxLength(10), Validators.minLength(10)]),
   });
   constructor(private serverHttp: ServerhttpService,private route:ActivatedRoute, private router:Router) { }
 
@@ -29,10 +29,6 @@ export class AddEmployeeComponent implements OnInit {
     if(this.id>0){
       this.loadData(this.id);
     }
-    // this.serverHttp.getProfile().subscribe((data)=> {
-    //   console.log(data);
-    //   this.employee= data;
-    // });
   }
   //Load dữ liệu lên form trong trường hợp edit
   private loadData(id){
@@ -76,6 +72,7 @@ export class AddEmployeeComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
+
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
