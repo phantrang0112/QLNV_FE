@@ -15,6 +15,8 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.Guard';
 @NgModule({
   declarations: [
             AppComponent,
@@ -24,6 +26,7 @@ import {MatTableModule} from '@angular/material/table';
             AddEmployeeComponent,
             MyColorDirective,
             FormLoginComponent,
+            LoginComponent,
 
 
           ],
@@ -37,7 +40,7 @@ import {MatTableModule} from '@angular/material/table';
           MatPaginatorModule,
           MatTableModule
           ],
-  providers: [{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
+  providers: [AuthGuard,{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

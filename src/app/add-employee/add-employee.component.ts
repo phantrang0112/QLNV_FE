@@ -29,6 +29,7 @@ export class AddEmployeeComponent implements OnInit {
     if(this.id>0){
       this.loadData(this.id);
     }
+
   }
   //Load dữ liệu lên form trong trường hợp edit
   private loadData(id){
@@ -42,8 +43,10 @@ export class AddEmployeeComponent implements OnInit {
     }
     )
   }
+
   public addEmployee(){
     const newEmployee=this.addEmployeeForm.value;
+
     //nếu có tồn tại id thì sửa
     if(this.id>0){
       this.serverHttp.editEmployee(this.id,newEmployee).subscribe((data)=>{
@@ -77,4 +80,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
+}
+export interface Employee {
+  userName: string;
+  passWord: string;
 }
