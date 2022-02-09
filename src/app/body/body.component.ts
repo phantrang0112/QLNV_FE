@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
 import { AppserviceService } from '../services/appservice.service';
@@ -18,6 +19,12 @@ export class BodyComponent implements OnInit {
   indexPagination=1;
   page_size=5;
   pageEvent: PageEvent;
+  searchGroup= new FormGroup(
+    {search:new FormControl(),}
+
+  );
+
+
   constructor(private service: AppserviceService,private serverHttp: ServerhttpService,private router: Router){
     // this.employee= service.employee;
   }
@@ -37,11 +44,8 @@ export class BodyComponent implements OnInit {
     // });
       this.serverHttp.getEmployeePage(this.indexPagination,this.page_size).subscribe((data)=>{
         this.listEmployeePaging=data;
-        console.log(data);
         this.numberItem= this.listEmployeePaging.total;
-        console.log(this.listEmployeePaging.list);
         this.dataSource =this.listEmployeePaging.list;
-        console.log(this.listEmployeePaging.total / this.page_size);
         if ((this.listEmployeePaging.total /this.page_size) >1) {
           this.totalPagination = this.indexPagination + 1;
         }
@@ -148,6 +152,23 @@ export class BodyComponent implements OnInit {
       this.listEmployeePaging=data;
       this.dataSource =this.listEmployeePaging.list;
       })
+  }
+  search(){
+    if(!this.searchGroup.controls.search.value){
+      this.serverHttp.getEmployeesSearch(this.searchGroup.controls.search.value,this.indexPagination, this.page_size).subscribe((data)=>{
+        this.listEmployeePaging=data;
+        this.numberItem= this.listEmployeePaging.total;
+        this.dataSource =this.listEmployeePaging.list;
+        console.log("ghjasgj");
+        if ((this.listEmployeePaging.total /this.page_size) >1) {
+          this.totalPagination = this.indexPagination + 1;
+        }
+
+      })
+    }
+    else{
+      this.loadData();
+    }
   }
 }
 export interface Employee {

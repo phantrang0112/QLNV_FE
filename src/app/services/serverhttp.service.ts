@@ -55,6 +55,10 @@ export class ServerhttpService {
     const url= `${this.REST_API_SERVER1}/Employee/login`;
     return this.httpclient.post<any>(url,data,this.httpOptions).pipe(catchError(this.handleError))
   }
+  public getEmployeesSearch(name: string,page: number, page_size: number):Observable<any>{
+    const url= `${this.REST_API_SERVER1}/Employee/search/`+name+"/"+`?page=`+page+`&page-size=`+ page_size;
+    return this.httpclient.get<any>(url,this.httpOptions).pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

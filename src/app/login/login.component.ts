@@ -4,7 +4,9 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '
 import { ErrorStateMatcher } from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import { Router } from '@angular/router';
+import { AppserviceService } from '../services/appservice.service';
 import { ServerhttpService } from '../services/serverhttp.service';
+import { HeaderComponent } from '../share/header/header.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
   employee: Employee;
   employeeAPI: employeeLogin;
   message;
-  constructor(private serverHttp: ServerhttpService,private route: Router) { }
+  loading=false;
+  constructor(private serverHttp: ServerhttpService,private route: Router, private appService: AppserviceService) { }
   ngOnInit() {
   }
   public login(){
@@ -33,6 +36,8 @@ export class LoginComponent implements OnInit {
         console.log(localStorage.getItem('username'))
         this.route.navigate(['']);
         this.message=this.employeeAPI.message;
+        this.appService.onSwitch();
+        console.log(this.appService.loginMode);
       }
       else{
         this.formLogin.reset();
@@ -49,6 +54,7 @@ export class LoginComponent implements OnInit {
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -59,6 +65,6 @@ export interface Employee {
 }
 export interface employeeLogin {
   message: string;
-statusCode: number;
-username: string;
+  statusCode: number;
+  username: string;
 }

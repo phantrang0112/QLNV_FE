@@ -31,22 +31,15 @@ export class AppserviceService {
 
   //   }
   // ]
+  loginMode=!localStorage.getItem('username');
   public numberItem=0;
   constructor( private serverHttp: ServerhttpService) { }
-  public datas;
-  public tongSoNhanVien(): number{
-   this.datas= this.serverHttp.getProfile().subscribe((data)=> {
-      console.log(data);
-      console.log("hitrang0");
-      this.employee= data;
-      this.numberItem= this.employee.length;
-      console.log(this.numberItem+"http");
-      return this.numberItem;
-    });
-    console.log("hitrang1"+this.numberItem+ this.datas);
-    return this.numberItem;
+  //
+  public btnLogin(){
+    console.log(this.loginMode);
+    return this.loginMode;
   }
-  public abc(){
-    return 6;
+  onSwitch(){
+    this.loginMode=!this.loginMode;
   }
 }

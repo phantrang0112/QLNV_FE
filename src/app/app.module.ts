@@ -17,6 +17,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.Guard';
+import { LoadingComponent } from './share/loading/loading.component';
 @NgModule({
   declarations: [
             AppComponent,
@@ -27,6 +28,7 @@ import { AuthGuard } from './auth.Guard';
             MyColorDirective,
             FormLoginComponent,
             LoginComponent,
+            LoadingComponent,
 
 
           ],
