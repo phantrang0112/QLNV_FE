@@ -3,11 +3,11 @@
 
   <ul class="breadcrumb">
     <li [routerLink]="['']" routerLinkActive="router-link-active">Home</li>
-    <li  [routerLink]="['/employeeForm',0]" routerLinkActive="router-link-active">Thêm nhân viên</li>
+    <li  [routerLink]="['/employeeForm',0]" routerLinkActive="router-link-active">add employee</li>
     <li  (click)="routerLogin()">{{loginMode?"Login":"Logout"}}</li>
+    <li *ngIf="loginMode==false" (click)="myAccount()" >My Account</li>
     <!-- <li [routerLink]="['/employeeForm',]" routerLinkActive="router-link-active">Thông tin cá nhân</li> -->
   </ul>
 
 
 </header>
-

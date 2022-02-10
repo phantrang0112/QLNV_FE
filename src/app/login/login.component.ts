@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
       if(this.employeeAPI.statusCode!=0){
         localStorage.setItem('username', this.employeeAPI.username);
+        localStorage.setItem('id',this.employeeAPI.id);
         console.log(localStorage.getItem('username'))
         this.route.navigate(['']);
         this.message=this.employeeAPI.message;
@@ -67,4 +68,5 @@ export interface employeeLogin {
   message: string;
   statusCode: number;
   username: string;
+  id: string;
 }

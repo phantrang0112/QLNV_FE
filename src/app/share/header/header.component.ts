@@ -30,9 +30,13 @@ export class HeaderComponent implements OnInit {
     }
     else{
       localStorage.removeItem('username');
+      localStorage.removeItem('id');
       this.route.navigate(['formLogin']);
     }
 
+  }
+  myAccount(){
+    this.route.navigate(['employeeForm',localStorage.getItem('id')])
   }
 
 }

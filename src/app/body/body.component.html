@@ -7,8 +7,7 @@
   <form [formGroup]="searchGroup" (ngSubmit)="search()">
     <div class="text-center">
 
-      <input class="col-6" type="search" [formControl]="search" placeholder="tìm
-        kiếm theo tên nhân viên" />
+      <input class="col-6" type="search" formControlName="search" placeholder="tìm kiếm theo tên nhân viên" />
       <button type="submit" style="background-color: transparent; border: none;"><i
           style="font-size: x-large; color: black;" class="fa fa-search"></i></button>
     </div>

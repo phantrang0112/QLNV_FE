@@ -16,21 +16,22 @@ export class BodyComponent implements OnInit {
   totalPagination: number;
   message;
   numberItem;
-  indexPagination=1;
-  page_size=5;
+  indexPagination = 1;
+  page_size = 5;
   pageEvent: PageEvent;
-  searchGroup= new FormGroup(
-    {search:new FormControl(),}
+  searchCheck = false;
+  searchGroup = new FormGroup(
+    { search: new FormControl(), }
 
   );
 
 
-  constructor(private service: AppserviceService,private serverHttp: ServerhttpService,private router: Router){
+  constructor(private service: AppserviceService, private serverHttp: ServerhttpService, private router: Router) {
     // this.employee= service.employee;
   }
-  displayedColumns: string[] = [ 'stt','img','name', 'phone','age','about'];
+  displayedColumns: string[] = ['stt', 'img', 'name', 'phone', 'age', 'about'];
 
-  dataSource ;
+  dataSource;
 
 
   ngOnInit(): void {
@@ -42,73 +43,93 @@ export class BodyComponent implements OnInit {
     //   console.log(this.numberItem)
 
     // });
-      this.serverHttp.getEmployeePage(this.indexPagination,this.page_size).subscribe((data)=>{
-        this.listEmployeePaging=data;
-        this.numberItem= this.listEmployeePaging.total;
-        this.dataSource =this.listEmployeePaging.list;
-        if ((this.listEmployeePaging.total /this.page_size) >1) {
-          this.totalPagination = this.indexPagination + 1;
+    this.serverHttp.getEmployeePage(this.indexPagination, this.page_size).subscribe((data) => {
+      this.listEmployeePaging = data;
+      this.numberItem = this.listEmployeePaging.total;
+      this.dataSource = this.listEmployeePaging.list;
+      if ((this.listEmployeePaging.total / this.page_size) > 1) {
+        this.totalPagination = this.indexPagination + 1;
+      }
+
+    })
+  }
+  private loadListEmployees(index: number, page_size: number) {
+    console.log(this.searchCheck);
+    if (this.searchCheck==false) {
+      this.serverHttp.getEmployeePage(index, page_size).subscribe((data) => {
+        this.listEmployeePaging = data;
+        if ((this.listEmployeePaging.total/page_size) > 1) {
+          this.totalPagination = index+1;
         }
+        else {
+          this.totalPagination=index;
+        }
+        this.dataSource = this.listEmployeePaging.list;
+        console.log(this.listEmployeePaging);
 
       })
+    }
+    else {
+      this.serverHttp.getEmployeesSearch(this.searchGroup.controls.search.value, index, page_size).subscribe((data) => {
+        this.listEmployeePaging = data;
+        this.dataSource = this.listEmployeePaging.list;
+        console.log(this.listEmployeePaging);
+      })
+    }
+
+
+    console.log(this.totalPagination,this.indexPagination);
+    return this.dataSource;
   }
   // Load lại data
-  private loadData(){
+  private loadData() {
     this.indexPagination = 1;
-    this.ngOnInit();
-    //window.location.reload();
-    // this.serverHttp.getProfile().subscribe((data)=> {
-    //   console.log(data);
+    // this.ngOnInit();
+    this.loadListEmployees(this.indexPagination, this.page_size);
 
-    //   this.employee= data;
-    //   this.numberItem= this.employee.length;
-    //   this.dataSource = new MatTableDataSource<Employee>(this.employee)
-    //   //
-    // });
   }
-  public tangTuoi(){
+  public tangTuoi() {
     this.service.numberItem++;
-    this.employee[0].age=this.service.numberItem;
+    this.employee[0].age = this.service.numberItem;
   }
   //Xóa 1 nhân viên
-  public xoaEmployee(employeeId){
+  public xoaEmployee(employeeId) {
     console.log(employeeId);
-    this.serverHttp.deleteEmployee(employeeId).subscribe((data)=>{
-      console.log('delete',data);
-      this.message="xóa thành công!";
+    this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
+      console.log('delete', data);
+      this.message = "xóa thành công!";
       this.loadData();
     })
   }
-  public getEmployeePaging(page, page_size){
-    this.serverHttp.getEmployeePage(page,page_size).subscribe((data)=>{
-      this.listEmployeePaging=data;
-      this.dataSource =this.listEmployeePaging.list;
-    })
-  }
-  public editEmployee(employeeId){
-    this.router.navigate(['employeeForm',employeeId]);// sử dụng dịch vụ router để chuyển hướng
-  }
+  //Lấy dữ liệu cho trang đầu tiên
+  public getEmployeePaging(page, page_size) {
+    this.dataSource = this.loadListEmployees(page, page_size);
 
+  }
+  //Click chỉnh sửa nhân viên
+  public editEmployee(employeeId) {
+    this.router.navigate(['employeeForm', employeeId]);// sử dụng dịch vụ router để chuyển hướng
+  }
+  //thay đổi số trang
   indexPaginationChage(value: number) {
     this.indexPagination = value;
   }
+  //Trang kế tiếp
   findPaginnation() {
-    if (this.totalPagination <(this.listEmployeePaging.total /this.page_size) ) {
+    if (this.totalPagination < (this.listEmployeePaging.total / this.page_size)) {
       this.totalPagination += 1;
-      if(this.indexPagination<this.totalPagination){
-        this.indexPagination+=1;
+      if (this.indexPagination < this.totalPagination) {
+        this.indexPagination += 1;
       }
-    }else{
-      this.indexPagination=this.totalPagination;
+    } else {
+      this.indexPagination = this.totalPagination;
     }
-    this.serverHttp.getEmployeePage(this.indexPagination,this.page_size).subscribe((data)=>{
-      this.listEmployeePaging=data;
-      this.dataSource =this.listEmployeePaging.list;
-    })
+    this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
   }
+  //Trang đầu tiên
   firtPage() {
     this.indexPagination = 1;
-    this.ngOnInit();
+    this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
   }
 
   // nextPage() {
@@ -121,52 +142,51 @@ export class BodyComponent implements OnInit {
   //     this.dataSource =this.listEmployeePaging.list;
   //   })
   // }
-
+  // Trang trước đó
   prviousPage() {
-    if(this.totalPagination > this.indexPagination){
-      this.totalPagination=this.totalPagination-1;
+    if (this.totalPagination > this.indexPagination) {
+      this.totalPagination = this.totalPagination - 1;
     }
     this.indexPagination = this.indexPagination - 1;
     if (this.indexPagination == 0) {
       this.indexPagination = 1;
-      this.ngOnInit();
+      this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
     } else {
-      this.serverHttp.getEmployeePage(this.indexPagination,this.page_size).subscribe((data)=>{
-        this.listEmployeePaging=data;
-        this.dataSource =this.listEmployeePaging.list;
-        })
+      this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
     }
   }
-
+  // Trang cuối cùng
   lastPage() {
-    if((this.listEmployeePaging.total % this.page_size)!=0){
-      this.indexPagination = Math.round( this.listEmployeePaging.total / this.page_size)+1;
-      this.totalPagination=this.indexPagination;
+    if ((this.listEmployeePaging.total % this.page_size) != 0) {
+      this.indexPagination = Math.round(this.listEmployeePaging.total / this.page_size) + 1;
+      this.totalPagination = this.indexPagination;
     }
-    else{
+    else {
       this.indexPagination = this.listEmployeePaging.total / this.page_size;
-      this.totalPagination=this.indexPagination;
+      this.totalPagination = this.indexPagination;
     }
 
-    this.serverHttp.getEmployeePage(this.indexPagination,this.page_size).subscribe((data)=>{
-      this.listEmployeePaging=data;
-      this.dataSource =this.listEmployeePaging.list;
-      })
+    this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
   }
-  search(){
-    if(!this.searchGroup.controls.search.value){
-      this.serverHttp.getEmployeesSearch(this.searchGroup.controls.search.value,this.indexPagination, this.page_size).subscribe((data)=>{
-        this.listEmployeePaging=data;
-        this.numberItem= this.listEmployeePaging.total;
-        this.dataSource =this.listEmployeePaging.list;
-        console.log("ghjasgj");
-        if ((this.listEmployeePaging.total /this.page_size) >1) {
+  search() {
+    console.log(this.searchGroup.controls.search.value);
+    this.searchCheck = true;
+    if (this.searchGroup.controls.search.value) {
+      this.serverHttp.getEmployeesSearch(this.searchGroup.controls.search.value, this.indexPagination, this.page_size).subscribe((data) => {
+        this.listEmployeePaging = data;
+        console.log(data);
+        this.dataSource = this.listEmployeePaging.list;
+        if ((this.listEmployeePaging.total / this.page_size) > 1) {
           this.totalPagination = this.indexPagination + 1;
+        }
+        else {
+          this.totalPagination = this.indexPagination;
         }
 
       })
     }
-    else{
+    else {
+      this.searchCheck = false;
       this.loadData();
     }
   }
@@ -178,10 +198,12 @@ export interface Employee {
   addess: string;
   age: string;
   img: string;
+pass: string;
+username:string;
 }
 export interface paging {
   total: number,
-  list:Array<Employee>,
+  list: Array<Employee>,
   pageNum: number,
   pageSize: number,
   size: number,

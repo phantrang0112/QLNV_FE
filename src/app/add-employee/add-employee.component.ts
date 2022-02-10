@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Employee } from '../body/body.component';
 import { ServerhttpService } from '../services/serverhttp.service';
 
 @Component({
@@ -11,8 +12,9 @@ import { ServerhttpService } from '../services/serverhttp.service';
 })
 export class AddEmployeeComponent implements OnInit {
 //  public name=  new FormControl('');
-  employee;
+  employee: Employee;
   message;
+  newEmployee: Employee;
   id=0;
 
   addEmployeeForm = new FormGroup({
@@ -45,19 +47,30 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   public addEmployee(){
-    const newEmployee=this.addEmployeeForm.value;
-
+    this.newEmployee=this.addEmployeeForm.value;
+    let id= +localStorage.getItem('id');
+    console.log(id);
     //nếu có tồn tại id thì sửa
     if(this.id>0){
-      this.serverHttp.editEmployee(this.id,newEmployee).subscribe((data)=>{
+      if(this.id===id){
+        this.serverHttp.editEmployee(this.id,this.newEmployee).subscribe((data)=>{
+          console.log(data);
+          this.message="cập nhật thông tin thành công";
+          this.loadData(this.id);
+        })
+      }
+      else(
+      this.serverHttp.editEmployee(this.id,this.newEmployee).subscribe((data)=>{
         console.log(data);
         this.message="cập nhật nhân viên thành công";
         this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
       })
+      )
 
-    }else{// nếu id bằng 0 thì thêm vào
+    }
+    else{// nếu id bằng 0 thì thêm vào
 
-      this.serverHttp.postEmployee(newEmployee).subscribe((data)=>{
+      this.serverHttp.postEmployee(this.newEmployee).subscribe((data)=>{
         console.log(data);
         this.addEmployeeForm.reset();
         this.message="thêm thành công";
@@ -81,7 +94,4 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-export interface Employee {
-  userName: string;
-  passWord: string;
-}
+
