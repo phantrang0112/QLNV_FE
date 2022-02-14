@@ -28,12 +28,13 @@ export class LoginComponent implements OnInit {
   public login(){
     this.employee= this.formLogin.value;
     console.log( this.employee);
-    this.serverHttp.login(this.employee).subscribe((data)=>{
+    this.serverHttp.generateToken(this.employee).subscribe((data)=>{
     this.employeeAPI= data;
-
-      if(this.employeeAPI.statusCode!=0){
+      console.log(data);
+      if(this.employeeAPI.token!=null){
         localStorage.setItem('username', this.employeeAPI.username);
         localStorage.setItem('id',this.employeeAPI.id);
+        localStorage.setItem('token',this.employeeAPI.token);
         console.log(localStorage.getItem('username'))
         this.route.navigate(['']);
         this.message=this.employeeAPI.message;
@@ -66,7 +67,7 @@ export interface Employee {
 }
 export interface employeeLogin {
   message: string;
-  statusCode: number;
+ token: string;
   username: string;
   id: string;
 }

@@ -35,6 +35,13 @@ export class AppserviceService {
   public numberItem=0;
   constructor( private serverHttp: ServerhttpService) { }
   //
+  token=null;
+  public getToken(){
+    return this.token;
+  }
+  public setToken(token:string){
+    this.token=token;
+  }
   public btnLogin(){
     console.log(this.loginMode);
     return this.loginMode;

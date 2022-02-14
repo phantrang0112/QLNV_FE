@@ -32,7 +32,7 @@ export class BodyComponent implements OnInit {
   displayedColumns: string[] = ['stt', 'img', 'name', 'phone', 'age', 'about'];
 
   dataSource;
-
+  token;
 
   ngOnInit(): void {
     // this.serverHttp.getProfile().subscribe((data)=> {
@@ -43,7 +43,8 @@ export class BodyComponent implements OnInit {
     //   console.log(this.numberItem)
 
     // });
-    this.serverHttp.getEmployeePage(this.indexPagination, this.page_size).subscribe((data) => {
+    this.token= localStorage.getItem('token');
+    this.serverHttp.getEmployeePage(this.indexPagination, this.page_size,this.token).subscribe((data) => {
       this.listEmployeePaging = data;
       this.numberItem = this.listEmployeePaging.total;
       this.dataSource = this.listEmployeePaging.list;
@@ -56,7 +57,7 @@ export class BodyComponent implements OnInit {
   private loadListEmployees(index: number, page_size: number) {
     console.log(this.searchCheck);
     if (this.searchCheck==false) {
-      this.serverHttp.getEmployeePage(index, page_size).subscribe((data) => {
+      this.serverHttp.getEmployeePage(index, page_size,this.token).subscribe((data) => {
         this.listEmployeePaging = data;
         if ((this.listEmployeePaging.total/page_size) > 1) {
           this.totalPagination = index+1;

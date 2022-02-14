@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee } from '../body/body.component';
+import { Employee } from '../login/login.component';
 import { ServerhttpService } from '../services/serverhttp.service';
 
 @Component({
@@ -55,7 +55,7 @@ export class AddEmployeeComponent implements OnInit {
       if(this.id===id){
         this.serverHttp.editEmployee(this.id,this.newEmployee).subscribe((data)=>{
           console.log(data);
-          this.message="cập nhật thông tin thành công";
+          this.message="cập nhật thông tinthành công";
           this.loadData(this.id);
         })
       }
