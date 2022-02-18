@@ -19,11 +19,14 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
+    this.appService.setTitel(this.title);
     this.loginMode=this.appService.btnLogin();
     console.log(this.loginMode);
     // this.numberItem= this.appService.tongSoNhanVien();
   }
   routerLogin(){
+
+    this.appService.setTitel("Thông tin cá nhân");
     if(this.appService.loginMode){
       this.route.navigate(['formLogin']);
       this.loginMode=this.appService.btnLogin();
@@ -31,12 +34,16 @@ export class HeaderComponent implements OnInit {
     else{
       localStorage.removeItem('username');
       localStorage.removeItem('id');
+      localStorage.removeItem('token');
       this.route.navigate(['formLogin']);
     }
-
   }
   myAccount(){
     this.route.navigate(['employeeForm',localStorage.getItem('id')])
   }
+  closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
 
 }

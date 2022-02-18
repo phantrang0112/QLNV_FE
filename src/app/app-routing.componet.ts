@@ -8,7 +8,7 @@ import { LoginComponent } from "./login/login.component";
 
 const routes: Routes = [
   { path: '', component: BodyComponent},
-  { path: 'employeeForm/:id', component: AddEmployeeComponent,canActivate:[AuthGuard]},
+  { path: 'employeeForm/:id', component: AddEmployeeComponent},
   { path: 'formLogin', component: LoginComponent  },
   // { path: '**', pathMatch:'full', redirectTo: 'routePath' }
 ];

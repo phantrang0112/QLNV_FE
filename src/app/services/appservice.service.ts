@@ -33,6 +33,8 @@ export class AppserviceService {
   // ]
   loginMode=!localStorage.getItem('username');
   public numberItem=0;
+  messages;
+  titel="Home";
   constructor( private serverHttp: ServerhttpService) { }
   //
   token=null;
@@ -48,5 +50,17 @@ export class AppserviceService {
   }
   onSwitch(){
     this.loginMode=!this.loginMode;
+  }
+  public setMessage(massege){
+    this.messages=massege;
+  }
+  public getMessage(){
+    return this.messages;
+  }
+  public getTitel(){
+    return this.titel;
+  }
+  public setTitel(titel){
+    this.titel=titel;
   }
 }

@@ -3,6 +3,7 @@ import { FormControl, FormControlName, FormGroup, FormGroupDirective, NgForm, Va
 import { ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../login/login.component';
+import { AppserviceService } from '../services/appservice.service';
 import { ServerhttpService } from '../services/serverhttp.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class AddEmployeeComponent implements OnInit {
   message;
   newEmployee: Employee;
   id=0;
-
+  titel="Thêm nhân viên";
   addEmployeeForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
     address:new FormControl('',[Validators.required]),
@@ -24,9 +25,10 @@ export class AddEmployeeComponent implements OnInit {
     age: new FormControl('',[Validators.required,Validators.min(1),Validators.max(100)]),
     phone: new FormControl('',[Validators.required,Validators.maxLength(10), Validators.minLength(10)]),
   });
-  constructor(private serverHttp: ServerhttpService,private route:ActivatedRoute, private router:Router) { }
+  constructor(private serverHttp: ServerhttpService,private route:ActivatedRoute, private router:Router, private appService:AppserviceService) { }
 
   ngOnInit() {
+    this.appService.setTitel(this.titel);
     this.id=+this.route.snapshot.paramMap.get('id');// Lấy giá trị tại ô id( muốn đổi từ String thành số thêm dấu "+ "đằng trước)
     if(this.id>0){
       this.loadData(this.id);
@@ -55,7 +57,8 @@ export class AddEmployeeComponent implements OnInit {
       if(this.id===id){
         this.serverHttp.editEmployee(this.id,this.newEmployee).subscribe((data)=>{
           console.log(data);
-          this.message="cập nhật thông tinthành công";
+          this.message="cập nhật thông tin thành công";
+
           this.loadData(this.id);
         })
       }
@@ -76,6 +79,7 @@ export class AddEmployeeComponent implements OnInit {
         this.message="thêm thành công";
       })
       }
+      this.appService.setMessage(this.message);
     }
 
 

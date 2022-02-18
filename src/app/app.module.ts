@@ -40,7 +40,8 @@ import { LoadingComponent } from './share/loading/loading.component';
           MatInputModule,
           MatFormFieldModule,
           MatPaginatorModule,
-          MatTableModule
+          MatTableModule,
+          BrowserModule
           ],
   providers: [AuthGuard,{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
   bootstrap: [AppComponent]

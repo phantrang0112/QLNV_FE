@@ -24,6 +24,7 @@ export class BodyComponent implements OnInit {
     { search: new FormControl(), }
 
   );
+  title="List Employee";
 
 
   constructor(private service: AppserviceService, private serverHttp: ServerhttpService, private router: Router) {
@@ -99,6 +100,7 @@ export class BodyComponent implements OnInit {
     this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
       console.log('delete', data);
       this.message = "xóa thành công!";
+      this.service.setMessage(this.message);
       this.loadData();
     })
   }
@@ -109,6 +111,8 @@ export class BodyComponent implements OnInit {
   }
   //Click chỉnh sửa nhân viên
   public editEmployee(employeeId) {
+    this.title="Chỉnh sửa nhân viên";
+    this.service.setTitel(this.title);
     this.router.navigate(['employeeForm', employeeId]);// sử dụng dịch vụ router để chuyển hướng
   }
   //thay đổi số trang

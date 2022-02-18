@@ -22,3 +22,15 @@ header .breadcrumb li:not(:last-child)::after {
   width: 75%;
   max-width: 960px;
 }
+ li {
+  padding: 8px 8px 8px 8px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #c9c9c9;
+  display: block;
+  transition: 0.3s;
+}
+
+li:hover {
+  color: #2e8d9e;
+}

@@ -1,7 +1,25 @@
 
 <main>
-  <app-header></app-header>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <div class="row">
+    <div class="col-2">
+      <app-header  class="sidenav"  id="mySidenav"></app-header>
+      <span style="font-size:30px;cursor:pointer " (click)="openNav()">&#9776; </span>
+    </div>
+
+
+    <div class="col-10 main text-center">
+      <br>
+      <br>
+      <br>
+      <h1>{{title}}</h1>
+      <h4 appMyColor>{{message}}</h4>
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
+  </div>
+
+
+
+
 </main>
 

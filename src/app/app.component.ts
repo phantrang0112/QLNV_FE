@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppserviceService } from './services/appservice.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   title = 'projectDauTien';
+  message;
+  constructor(private appService: AppserviceService){
+    this.title= this.appService.getTitel();
+  }
+  ngOnInit() {
+    this.message=this.appService.getMessage();
+    console.log(this.title)
+
+  }
+  openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
 }
