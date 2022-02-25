@@ -84,6 +84,10 @@ export class ServerhttpService {
     const url = `${this.REST_API_SERVER1}/Employee/register`;
     return this.httpclient.post<any>(url, data).pipe(catchError(this.handleError))
   }
+  public changePass(data){
+    const url = `${this.REST_API_SERVER1}/Employee/changepass`;
+    return this.httpclient.put<any>(url, data,this.httpOptions).pipe(catchError(this.handleError))
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
