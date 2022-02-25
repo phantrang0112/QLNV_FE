@@ -1,0 +1,48 @@
+
+<div class="container">
+  <p
+      *ngIf="formChangePass.get('newPassword').value!= formChangePass.get('confirmPassword').value" appMyColor>
+      * password and confirm password not match
+
+    </p>
+    <form [formGroup]="formChangePass" (ngSubmit)="changePass()">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Old Password</mat-label>
+    <input id="password" class="col-6" type="password" matInput
+      formControlName="oldPassword" />
+      <mat-error
+      *ngIf="formChangePass.get('oldPassword').invalid">
+      *OldPassword no is Required(minimum length 8)
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label> New Password</mat-label>
+    <input class="col-6" id="last-name" type="password" matInput
+      formControlName="newPassword"  />
+      <mat-error
+      *ngIf="formChangePass.get('newPassword').invalid">
+      *New Password no is Required(minimum length 8)
+    </mat-error>
+
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label> Confirm Password</mat-label>
+    <input class="col-6" id="last-name" type="password" matInput
+      formControlName="confirmPassword" />
+
+      <mat-error
+      *ngIf="formChangePass.get('confirmPassword').invalid">
+      * Confirm Password no is Required(minimum length 8)
+    </mat-error>
+
+
+
+  </mat-form-field>
+
+  <br>
+  <br>
+  <button type="submit" class="btn btn-outline-danger text-center">Change</button>
+</form>
+</div>

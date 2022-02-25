@@ -36,9 +36,9 @@ export class ServerhttpService {
     if (this.token != null) {
       console.log(this.token);
        this.httpOptions.headers.set('Authorization', string);
-     // console.log(this.httpOptions.headers.get('Authorization'))
+     console.log(this.httpOptions.headers.get('Authorization'))
       const url = `${this.REST_API_SERVER1}/Employee/getPage` + `?page=` + page + `&page-size=` + page_size;
-      return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));
+      return this.httpclient.get<any>(url, httpOptionss).pipe(catchError(this.handleError));
     }
   }
   // lấy toàn bộ  nhân viên
@@ -79,6 +79,10 @@ export class ServerhttpService {
   public getEmployeesSearch(name: string, page: number, page_size: number): Observable<any> {
     const url = `${this.REST_API_SERVER1}/Employee/search/` + name + "/" + `?page=` + page + `&page-size=` + page_size;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));
+  }
+  public register(data){
+    const url = `${this.REST_API_SERVER1}/Employee/register`;
+    return this.httpclient.post<any>(url, data).pipe(catchError(this.handleError))
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

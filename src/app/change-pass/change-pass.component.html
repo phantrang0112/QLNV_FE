@@ -1,0 +1,43 @@
+
+<div class="container">
+  <form formGroupName="formChangePass">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Old Password</mat-label>
+    <input id="password" class="col-6" type="password" matInput
+      formControlName="oldPassword" />
+    <mat-error *ngIf="formChangePass.controls.username.hasError('required')">
+      *add <strong>UserName!</strong>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label> New Password</mat-label>
+    <input class="col-6" id="last-name" type="password" matInput
+      formControlName="newPassword"  />
+    <mat-error
+      *ngIf="formChangePass.controls.password.hasError('minLength')!=null">
+      *Mật khẩu phải có ít nhất 8 kí tự
+    </mat-error>
+    <mat-error *ngIf="formChangePass.controls.password.hasError('required')">
+      *add <strong>Password!</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label> Confirm Password</mat-label>
+    <input class="col-6" id="last-name" type="password" matInput
+      formControlName="confirmPassword" />
+    <mat-error
+      *ngIf="formChangePass.controls.password.hasError('minLength')!=null">
+      *Mật khẩu phải có ít nhất 8 kí tự
+    </mat-error>
+    <mat-error *ngIf="formChangePass.controls.password.hasError('required')">
+      *add <strong>Password!</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <br>
+  <br>
+  <button type="submit" class="btn btn-outline-danger text-center"> Login</button>
+</form>
+</div>

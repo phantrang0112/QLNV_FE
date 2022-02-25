@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './share/header/header.component';
@@ -7,7 +7,6 @@ import { FooterComponent } from './share/footer/footer.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AppRoutingModule } from './app-routing.componet';
 import { MyColorDirective } from './directives/my-color.directive';
-import { FormLoginComponent } from './form-login/form-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
@@ -18,6 +17,10 @@ import {MatTableModule} from '@angular/material/table';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.Guard';
 import { LoadingComponent } from './share/loading/loading.component';
+import { RegisterComponent } from './login/register/register.component';
+import { ChangePassComponent } from './login/change-pass/change-pass.component';
+import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
             AppComponent,
@@ -26,11 +29,10 @@ import { LoadingComponent } from './share/loading/loading.component';
             FooterComponent,
             AddEmployeeComponent,
             MyColorDirective,
-            FormLoginComponent,
             LoginComponent,
             LoadingComponent,
-
-
+            RegisterComponent,
+            ChangePassComponent,
           ],
   imports: [
             BrowserModule,
@@ -41,7 +43,7 @@ import { LoadingComponent } from './share/loading/loading.component';
           MatFormFieldModule,
           MatPaginatorModule,
           MatTableModule,
-          BrowserModule
+          BrowserAnimationsModule,
           ],
   providers: [AuthGuard,{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
   bootstrap: [AppComponent]
