@@ -65,7 +65,7 @@ export class ServerhttpService {
   // Xóa 1 nhân viên thông qua id
   public deleteEmployee(employeeId: number) {
     const url = `${this.REST_API_SERVER1}/Employee/` + employeeId;
-    return this.httpclient.delete<any>(url).pipe(catchError(this.handleError));// Nhớ import catchError
+    return this.httpclient.delete<any>(url,this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
 
   public login(data): Observable<any> {
@@ -87,6 +87,14 @@ export class ServerhttpService {
   public changePass(data){
     const url = `${this.REST_API_SERVER1}/Employee/changepass`;
     return this.httpclient.put<any>(url, data,this.httpOptions).pipe(catchError(this.handleError))
+  }
+  public uploadImg(data,id:number){
+    this.httpOptions.headers.append( 'Content-Type',"multipart/form-data");
+   
+    console.log(this.httpOptions.headers.get('Authorization'));
+    console.log(data);
+    const url = `${this.REST_API_SERVER1}/Employee/upload/`+id+"/"+`?file=`+data;
+    return this.httpclient.post<any>(url,data,this.httpOptions).pipe(catchError(this.handleError))
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

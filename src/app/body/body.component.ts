@@ -24,7 +24,7 @@ export class BodyComponent implements OnInit {
     { search: new FormControl(), }
 
   );
-  title="List Employee";
+  title = "List Employee";
 
 
   constructor(private service: AppserviceService, private serverHttp: ServerhttpService, private router: Router) {
@@ -44,8 +44,8 @@ export class BodyComponent implements OnInit {
     //   console.log(this.numberItem)
 
     // });
-    this.token= localStorage.getItem('token');
-    this.serverHttp.getEmployeePage(this.indexPagination, this.page_size,this.token).subscribe((data) => {
+    this.token = localStorage.getItem('token');
+    this.serverHttp.getEmployeePage(this.indexPagination, this.page_size, this.token).subscribe((data) => {
       this.listEmployeePaging = data;
       this.numberItem = this.listEmployeePaging.total;
       this.dataSource = this.listEmployeePaging.list;
@@ -57,14 +57,14 @@ export class BodyComponent implements OnInit {
   }
   private loadListEmployees(index: number, page_size: number) {
     console.log(this.searchCheck);
-    if (this.searchCheck==false) {
-      this.serverHttp.getEmployeePage(index, page_size,this.token).subscribe((data) => {
+    if (this.searchCheck == false) {
+      this.serverHttp.getEmployeePage(index, page_size, this.token).subscribe((data) => {
         this.listEmployeePaging = data;
-        if ((this.listEmployeePaging.total/page_size) > 1) {
-          this.totalPagination = index+1;
+        if ((this.listEmployeePaging.total / page_size) > 1) {
+          this.totalPagination = index + 1;
         }
         else {
-          this.totalPagination=index;
+          this.totalPagination = index;
         }
         this.dataSource = this.listEmployeePaging.list;
         console.log(this.listEmployeePaging);
@@ -80,7 +80,7 @@ export class BodyComponent implements OnInit {
     }
 
 
-    console.log(this.totalPagination,this.indexPagination);
+    console.log(this.totalPagination, this.indexPagination);
     return this.dataSource;
   }
   // Load lại data
@@ -97,12 +97,20 @@ export class BodyComponent implements OnInit {
   //Xóa 1 nhân viên
   public xoaEmployee(employeeId) {
     console.log(employeeId);
-    this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
-      console.log('delete', data);
-      this.message = "xóa thành công!";
-      this.service.setMessage(this.message);
-      this.loadData();
-    })
+    let choice = confirm("Bạn có chắc chắn muốn xóa không?");
+    console.log(choice);
+    if (choice) {
+      this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
+        console.log('delete', data);
+        this.message = "xóa thành công!";
+        this.service.setMessage(this.message);
+        this.loadData();
+      })
+    }
+    else {
+
+    }
+
   }
   //Lấy dữ liệu cho trang đầu tiên
   public getEmployeePaging(page, page_size) {
@@ -111,7 +119,7 @@ export class BodyComponent implements OnInit {
   }
   //Click chỉnh sửa nhân viên
   public editEmployee(employeeId) {
-    this.title="Chỉnh sửa nhân viên";
+    this.title = "Chỉnh sửa nhân viên";
     this.service.setTitel(this.title);
     this.router.navigate(['employeeForm', employeeId]);// sử dụng dịch vụ router để chuyển hướng
   }
@@ -198,13 +206,14 @@ export class BodyComponent implements OnInit {
 }
 export interface Employee {
   stt: number;
+  id:number;
   name: string;
   phone: string;
   addess: string;
   age: string;
   img: string;
-pass: string;
-username:string;
+  pass: string;
+  username: string;
 }
 export interface paging {
   total: number,

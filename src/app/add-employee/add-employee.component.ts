@@ -87,6 +87,17 @@ export class AddEmployeeComponent implements OnInit {
   public onSubmit(){
     console.log("hi trang");
   }
+  changeImg(){
+    
+    let id= +localStorage.getItem('id');
+    if(id==0){
+      this.message="Tài khoản chưa xác thực"
+    }
+    else{
+      this.router.navigate(['changeImg',this.id]);
+    }
+    
+  }
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   matcher = new MyErrorStateMatcher();
@@ -97,5 +108,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
+  
 }
 
