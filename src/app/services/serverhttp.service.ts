@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
@@ -15,11 +15,11 @@ export class ServerhttpService {
   token = localStorage.getItem('token');
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token,
+      "Content-Type": "multipart/form-data",
       // "Access-Control-Allow-Origin":"*"
-    })
-
+    }),
   };
 
   constructor(private httpclient: HttpClient) { }
@@ -31,7 +31,8 @@ export class ServerhttpService {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token,
         // "Access-Control-Allow-Origin":"*"
-      })
+      }),
+     
     };
     if (this.token != null) {
       console.log(this.token);
@@ -89,12 +90,15 @@ export class ServerhttpService {
     return this.httpclient.put<any>(url, data,this.httpOptions).pipe(catchError(this.handleError))
   }
   public uploadImg(data,id:number){
-    this.httpOptions.headers.append( 'Content-Type',"multipart/form-data");
-   
-    console.log(this.httpOptions.headers.get('Authorization'));
+    // this.httpOptions.headers.append( 'Content-Type',"multipart/form-data");
+    const formData = new FormData();
+    formData.append('file',data);
+    console.log(this.httpOptions.headers.get('Authorization'));    
     console.log(data);
-    const url = `${this.REST_API_SERVER1}/Employee/upload/`+id+"/"+`?file=`+data;
-    return this.httpclient.post<any>(url,data,this.httpOptions).pipe(catchError(this.handleError))
+    // this.httpOptions.headers.set("Content-Type", "multipart/form-data");
+    const url = `${this.REST_API_SERVER1}/Employee/upload/`+id;
+    return this.httpclient.post<any>(url,formData,{headers:this.httpOptions.headers,reportProgress: true,
+      responseType: 'json'}).pipe(catchError(this.handleError))
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
