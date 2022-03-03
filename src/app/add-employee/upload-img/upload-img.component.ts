@@ -25,17 +25,19 @@ export class UploadImgComponent implements OnInit {
   selectfile:File;
   employee: Employee;
   id;
+  img="avt.jpg";
   // uploadImgForm = new FormGroup({
   //   fileImg: new FormControl("")
   // })
   constructor(private service: ServerhttpService,private router: Router,private route:ActivatedRoute) { }
 
   ngOnInit() {
+    this.url= this.img;
     this.id=+this.route.snapshot.paramMap.get('id');
   }
   changeImg(event) {
     console.log(event);
-    this.selectfile = event.target.files[0];
+    this.selectfile = (event.target as HTMLInputElement).files[0];
     console.log(event);
     console.log(this.selectfile);
 

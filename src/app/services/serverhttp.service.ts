@@ -17,8 +17,7 @@ export class ServerhttpService {
     headers: new HttpHeaders({
       // 'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token,
-      "Content-Type": "multipart/form-data",
-      // "Access-Control-Allow-Origin":"*"
+      // "Content-Type": "multipart/form-data",
     }),
   };
 

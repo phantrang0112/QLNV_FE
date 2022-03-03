@@ -1,7 +1,11 @@
 
-<p>upload-img works!</p>
-<img src="/assets/{{url}}" style="width: 100px;height:
-100px; object-fit :cover" alt=""/>
-<br>
-<input type="file" (change)="changeImg($event)">
-<button class="btn btn-primary"  (click)="uploadImg()"> Cập nhật ảnh</button>
+<div class="container" style="margin-bottom: 25%;">
+    <p>Cập nhật ảnh!</p>
+    <img src="/assets/{{url}}" style="width: 100px;height:
+    100px; object-fit :cover" alt=""/>
+    <hr>
+    <br>
+    <br>
+    <input type="file" (change)="changeImg($event)">
+    <button class="btn btn-primary"  (click)="uploadImg()"> Cập nhật ảnh</button>
+</div>

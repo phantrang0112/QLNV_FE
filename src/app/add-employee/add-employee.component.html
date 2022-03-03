@@ -18,7 +18,7 @@
   <!-- <p>Value: {{ name.value }}</p> -->
   <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
     <div class="justify-content-center text-center mt-3">
-      <img src="../assets/hinh1.jpg" style="position: relative;"
+      <img src="/assets/{{this.addEmployeeForm.controls.img.value}}" style="position: relative;"
         class="rounded-circle" alt="Cinque Terre" width="150"
         height="150" />
       <button
@@ -29,7 +29,7 @@
     <br>
     <br><br>
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Fullname</mat-label>
+      <mat-label >Fullname</mat-label>
       <input id="first-name" class="col-6" type="text" matInput
         formControlName="name" [errorStateMatcher]="matcher" />
       <mat-error *ngIf="addEmployeeForm.controls.name.hasError('required')">

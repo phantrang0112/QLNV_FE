@@ -17,6 +17,7 @@ export class AddEmployeeComponent implements OnInit {
   message;
   newEmployee: Employee;
   id=0;
+  img;
   titel="Thêm nhân viên";
   addEmployeeForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
@@ -41,6 +42,7 @@ export class AddEmployeeComponent implements OnInit {
     this.serverHttp.getEmployeeId(id).subscribe((data)=>{
       for(const controlName in this.addEmployeeForm.controls){
         if(controlName){
+          
           this.addEmployeeForm.controls[controlName].setValue(data[controlName]);
         }
       }
@@ -91,12 +93,11 @@ export class AddEmployeeComponent implements OnInit {
     
     let id= +localStorage.getItem('id');
     if(id==0){
-      this.message="Tài khoản chưa xác thực"
+      this.message="Tài khoản chưa xác thực";
     }
     else{
       this.router.navigate(['changeImg',this.id]);
     }
-    
   }
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
