@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   }
   routerLogin(){
 
-    this.appService.setTitel("Thông tin cá nhân");
+    this.appService.setTitel("Login");
     if(this.appService.loginMode){
       this.route.navigate(['formLogin']);
       this.loginMode=this.appService.btnLogin();
