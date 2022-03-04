@@ -9,7 +9,7 @@ import { ServerhttpService } from 'src/app/services/serverhttp.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  title="Danh sách nhân viên";
+  // title="Danh sách nhân viên";
 
   employee;
   loginMode;
@@ -19,10 +19,13 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-    this.appService.setTitel(this.title);
+    // this.appService.setTitel(this.title);
     this.loginMode=this.appService.btnLogin();
     console.log(this.loginMode);
     // this.numberItem= this.appService.tongSoNhanVien();
+  }
+  ngDoCheck(){
+
   }
   routerLogin(){
 

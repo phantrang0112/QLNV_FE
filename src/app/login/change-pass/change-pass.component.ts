@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AppserviceService } from 'src/app/services/appservice.service';
 import { ServerhttpService } from 'src/app/services/serverhttp.service';
 import { Employee, employeeLogin } from '../login.component';
 
@@ -17,9 +18,10 @@ export class ChangePassComponent implements OnInit {
   employee: EmployeeChangePass;
   employeeChange: employeeLogin;
   message;
-  constructor(private service: ServerhttpService) { }
-
+  constructor(private service: ServerhttpService, private appService: AppserviceService) { }
+  titel="Change pass";
   ngOnInit() {
+    this.appService.setTitel(this.titel);
   }
   changePass(){
     this.employee=this.formChangePass.value;

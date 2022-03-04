@@ -37,6 +37,7 @@ export class AppserviceService {
   titel="Home";
   constructor( private serverHttp: ServerhttpService) { }
   //
+  oldTitel="Home";
   token=null;
   public getToken(){
     return this.token;
@@ -61,6 +62,13 @@ export class AppserviceService {
     return this.titel;
   }
   public setTitel(titel){
+    if(this.titel!=titel){
+      this.oldTitel= this.titel
+    }
+    
     this.titel=titel;
+  }
+  public getOldTitle(){
+    return this.oldTitel;
   }
 }

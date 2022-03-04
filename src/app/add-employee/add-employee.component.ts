@@ -18,7 +18,7 @@ export class AddEmployeeComponent implements OnInit {
   newEmployee: Employee;
   id=0;
   img;
-  titel="Thêm nhân viên";
+  titel="Add Enmployee";
   addEmployeeForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
     address:new FormControl('',[Validators.required]),
@@ -35,6 +35,9 @@ export class AddEmployeeComponent implements OnInit {
       this.loadData(this.id);
     }
 
+  }
+  ngDoCheck(){
+    this.appService.setTitel(this.titel);
   }
   //Load dữ liệu lên form trong trường hợp edit
   private loadData(id){

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '
 import { ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/body/body.component';
+import { AppserviceService } from 'src/app/services/appservice.service';
 import { ServerhttpService } from 'src/app/services/serverhttp.service';
 
 @Component({
@@ -20,10 +21,12 @@ export class RegisterComponent implements OnInit {
     age: new FormControl(null,[Validators.required]),
     email: new FormControl(null,[Validators.required,Validators.email])
   })
+  titel="Register";
   message="";
-  constructor(private service: ServerhttpService, private route: Router) { }
+  constructor(private service: ServerhttpService, private route: Router, private appService: AppserviceService) { }
 
   ngOnInit() {
+    this.appService.setTitel(this.titel);
   }
   registe(){
     let newEmployee: Employee;

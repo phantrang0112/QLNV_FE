@@ -36,6 +36,7 @@ export class BodyComponent implements OnInit {
   token;
 
   ngOnInit(): void {
+    this.service.setTitel(this.title);
     // this.serverHttp.getProfile().subscribe((data)=> {
     //   console.log(data);
     //    this.employee= data;
