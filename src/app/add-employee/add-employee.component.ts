@@ -12,40 +12,58 @@ import { ServerhttpService } from '../services/serverhttp.service';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
-//  public name=  new FormControl('');
+  //  public name=  new FormControl('');
   employee: Employee;
   message;
   newEmployee: Employee;
-  id=0;
+  id = 0;
   img;
-  titel="Add Enmployee";
+  title = "Employee";
+ display = false;
   addEmployeeForm = new FormGroup({
-    name: new FormControl('',[Validators.required]),
-    address:new FormControl('',[Validators.required]),
-    img:new FormControl('',[Validators.required]),
-    age: new FormControl('',[Validators.required,Validators.min(1),Validators.max(100)]),
-    phone: new FormControl('',[Validators.required,Validators.maxLength(10), Validators.minLength(10)]),
+    name: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    img: new FormControl(),
+    age: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100)]),
+    phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
   });
-  constructor(private serverHttp: ServerhttpService,private route:ActivatedRoute, private router:Router, private appService:AppserviceService) { }
+  constructor(private serverHttp: ServerhttpService, private route: ActivatedRoute, private router: Router, private appService: AppserviceService) {
+  }
 
   ngOnInit() {
-    this.appService.setTitel(this.titel);
-    this.id=+this.route.snapshot.paramMap.get('id');// Lấy giá trị tại ô id( muốn đổi từ String thành số thêm dấu "+ "đằng trước)
-    if(this.id>0){
-      this.loadData(this.id);
+    console.log(this.title);
+    this.appService.setTitel(this.title);
+    this.id = +this.route.snapshot.paramMap.get('id');// Lấy giá trị tại ô id( muốn đổi từ String thành số thêm dấu "+ "đằng trước)
+   let trang=localStorage.getItem('name');
+    console.log(trang) ;
+    if (localStorage.getItem('role') == 'ADMIN') {
+      this.display = false;
+      if (this.id > 0) {
+        this.loadData(this.id);
+      }
     }
+      else {
+        this.message="Not have access";
+        this.display = true;
+      }
+   
+
+
+    this.appService.setCheck(false);
 
   }
-  ngDoCheck(){
-    this.appService.setTitel(this.titel);
-  }
+  // ngDoCheck(){
+  //   this.appService.setTitel(this.title);
+  // }
   //Load dữ liệu lên form trong trường hợp edit
-  private loadData(id){
-    console.log('loaddata',id);
-    this.serverHttp.getEmployeeId(id).subscribe((data)=>{
-      for(const controlName in this.addEmployeeForm.controls){
-        if(controlName){
-          
+  private loadData(id) {
+    console.log('loaddata', id);
+    this.serverHttp.getEmployeeId(id).subscribe((data) => {
+      for (const controlName in this.addEmployeeForm.controls) {
+        if (controlName) {
+
           this.addEmployeeForm.controls[controlName].setValue(data[controlName]);
         }
       }
@@ -53,53 +71,60 @@ export class AddEmployeeComponent implements OnInit {
     )
   }
 
-  public addEmployee(){
-    this.newEmployee=this.addEmployeeForm.value;
-    let id= +localStorage.getItem('id');
-    console.log(id);
-    //nếu có tồn tại id thì sửa
-    if(this.id>0){
-      if(this.id===id){
-        this.serverHttp.editEmployee(this.id,this.newEmployee).subscribe((data)=>{
-          console.log(data);
-          this.message="cập nhật thông tin thành công";
+  public addEmployee() {
+    this.newEmployee = this.addEmployeeForm.value;
+    let id = +localStorage.getItem('id');
+   
+    
+      console.log(id);
+      //nếu có tồn tại id thì sửa
+      if (this.id > 0) {
 
-          this.loadData(this.id);
+        if (this.id === id) {
+          this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
+            console.log(data);
+            this.message = "cập nhật thông tin thành công";
+
+            this.loadData(this.id);
+          })
+        }
+        else (
+          this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
+            console.log(data);
+            this.message = "cập nhật nhân viên thành công";
+            this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
+          })
+        )
+
+      }
+      else {// nếu id bằng 0 thì thêm vào
+
+        this.serverHttp.postEmployee(this.newEmployee).subscribe((data) => {
+          console.log(data);
+          this.addEmployeeForm.reset();
+          this.message = "thêm thành công";
+          this.router.navigate(['']);
         })
       }
-      else(
-      this.serverHttp.editEmployee(this.id,this.newEmployee).subscribe((data)=>{
-        console.log(data);
-        this.message="cập nhật nhân viên thành công";
-        this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
-      })
-      )
-
-    }
-    else{// nếu id bằng 0 thì thêm vào
-
-      this.serverHttp.postEmployee(this.newEmployee).subscribe((data)=>{
-        console.log(data);
-        this.addEmployeeForm.reset();
-        this.message="thêm thành công";
-      })
-      }
       this.appService.setMessage(this.message);
-    }
+    
+  
+
+  }
 
 
 
-  public onSubmit(){
+  public onSubmit() {
     console.log("hi trang");
   }
-  changeImg(){
-    
-    let id= +localStorage.getItem('id');
-    if(id==0){
-      this.message="Tài khoản chưa xác thực";
+  changeImg() {
+
+    let id = this.id;
+    if (id == 0) {
+      this.message = "Tài khoản chưa xác thực";
     }
-    else{
-      this.router.navigate(['changeImg',this.id]);
+    else {
+      this.router.navigate(['changeImg', this.id]);
     }
   }
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
@@ -112,6 +137,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
-  
+
 }
 

@@ -21,12 +21,12 @@ export class RegisterComponent implements OnInit {
     age: new FormControl(null,[Validators.required]),
     email: new FormControl(null,[Validators.required,Validators.email])
   })
-  titel="Register";
+  title="Register";
   message="";
   constructor(private service: ServerhttpService, private route: Router, private appService: AppserviceService) { }
 
   ngOnInit() {
-    this.appService.setTitel(this.titel);
+    this.appService.setTitel(this.title);
   }
   registe(){
     let newEmployee: Employee;

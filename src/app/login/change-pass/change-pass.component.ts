@@ -19,9 +19,9 @@ export class ChangePassComponent implements OnInit {
   employeeChange: employeeLogin;
   message;
   constructor(private service: ServerhttpService, private appService: AppserviceService) { }
-  titel="Change pass";
+  title="Change pass";
   ngOnInit() {
-    this.appService.setTitel(this.titel);
+    this.appService.setTitel(this.title);
   }
   changePass(){
     this.employee=this.formChangePass.value;

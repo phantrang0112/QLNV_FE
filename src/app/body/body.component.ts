@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ServerhttpService } from '../services/serverhttp.service';
   templateUrl: './body.component.html',
   styleUrls: ['./body.component.css']
 })
-export class BodyComponent implements OnInit {
+export class BodyComponent implements OnInit, OnDestroy {
   employee;
   listEmployeePaging: paging;
   totalPagination: number;
@@ -84,6 +84,10 @@ export class BodyComponent implements OnInit {
     console.log(this.totalPagination, this.indexPagination);
     return this.dataSource;
   }
+  ngOnDestroy() {
+    this.service.setCheck(true);
+
+  }
   // Load lại data
   private loadData() {
     this.indexPagination = 1;
@@ -97,20 +101,27 @@ export class BodyComponent implements OnInit {
   }
   //Xóa 1 nhân viên
   public xoaEmployee(employeeId) {
-    console.log(employeeId);
-    let choice = confirm("Bạn có chắc chắn muốn xóa không?");
-    console.log(choice);
-    if (choice) {
-      this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
-        console.log('delete', data);
-        this.message = "xóa thành công!";
-        this.service.setMessage(this.message);
-        this.loadData();
-      })
-    }
-    else {
 
+    if (localStorage.getItem('role') == 'ADMIN') {
+      console.log(employeeId);
+      let choice = confirm("Bạn có chắc chắn muốn xóa không?");
+      console.log(choice);
+      if (choice) {
+        this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
+          console.log('delete', data);
+          this.message = "xóa thành công!";
+          this.service.setMessage(this.message);
+          this.loadData();
+        })
+      }
+      else {
+          this.message="Xóa thất bại";
+      }
     }
+    else{
+      this.message='not have access';
+    }
+
 
   }
   //Lấy dữ liệu cho trang đầu tiên
@@ -207,7 +218,7 @@ export class BodyComponent implements OnInit {
 }
 export interface Employee {
   stt: number;
-  id:number;
+  id: number;
   name: string;
   phone: string;
   addess: string;

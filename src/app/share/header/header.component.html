@@ -6,7 +6,7 @@
     <li><a  [routerLink]="['']" routerLinkActive="router-link-active" >Home</a></li>
     <li ><a  [routerLink]="['/employeeForm',0]" routerLinkActive="router-link-active">Add employee</a></li>
     <li ><a  (click)="routerLogin()">{{loginMode?"Login":"Logout"}}</a></li>
-    <li ><a [routerLink]="['formRegister']" routerLinkActive="router-link-active">Register</a></li>
+    <li *ngIf="loginMode" ><a [routerLink]="['formRegister']"  routerLinkActive="router-link-active">Register</a></li>
     <li ><a *ngIf="loginMode==false" (click)="myAccount()">My Account</a></li>
     <li ><a [routerLink]="['formChangePass']" routerLinkActive="router-link-active">Change</a></li>
     <!-- <li [routerLink]="['/employeeForm',]" routerLinkActive="router-link-active">Thông tin cá nhân</li> -->

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { retry } from 'rxjs/operators';
 import { ServerhttpService } from './serverhttp.service';
 
 @Injectable({
@@ -34,10 +35,11 @@ export class AppserviceService {
   loginMode=!localStorage.getItem('username');
   public numberItem=0;
   messages;
-  titel="Home";
+  title="Home";
+  check;
   constructor( private serverHttp: ServerhttpService) { }
   //
-  oldTitel="Home";
+  oldTitle="Home";
   token=null;
   public getToken(){
     return this.token;
@@ -58,17 +60,23 @@ export class AppserviceService {
   public getMessage(){
     return this.messages;
   }
-  public getTitel(){
-    return this.titel;
+  public getTitle(){
+    return this.title;
   }
-  public setTitel(titel){
-    if(this.titel!=titel){
-      this.oldTitel= this.titel
-    }
+  public setTitel(title){
+    // if(this.titel!=titel){
+      this.oldTitle= this.title
     
-    this.titel=titel;
+    this.title=title;
+    console.log(this.title+"hmmm"+this.oldTitle)
   }
   public getOldTitle(){
-    return this.oldTitel;
+    return this.oldTitle;
+  }
+  public getCheck(){
+    return this.check;
+  }
+  public setCheck(check){
+    this.check= check;
   }
 }

@@ -1,12 +1,13 @@
 
 <section class="container">
-  <!-- <h1>{{title}}</h1> -->
+  <h1>{{title}}</h1>
+  <h5 appMyColor>{{message}}</h5>
   <p class="count" style="text-align: right;" appMyColor>{{numberItem}} Nhân
     viên</p>
   <form [formGroup]="searchGroup" (ngSubmit)="search()">
     <div class="text-center">
 
-      <input class="col-6" type="search" formControlName="search" placeholder="tìm kiếm theo tên nhân viên" />
+      <input class="col-6" type="search" formControlName="search" placeholder="Search by name" />
       <button type="submit" style="background-color: transparent; border: none;"><i
           style="font-size: x-large; color: black;" class="fa fa-search"></i></button>
     </div>

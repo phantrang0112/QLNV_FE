@@ -22,11 +22,11 @@ export class LoginComponent implements OnInit {
   employeeAPI: employeeLogin;
   message;
   loading=false;
-  titel="Login";
+  title="Login";
   constructor(private serverHttp: ServerhttpService,private route: Router, private appService: AppserviceService) { }
   ngOnInit() {
-    this.appService.setTitel(this.titel);
-    console.log(this.appService.getTitel())
+    this.appService.setTitel(this.title);
+    // console.log(this.appService.getTitle())
   }
   public login(){
     this.employee= this.formLogin.value;
@@ -38,12 +38,14 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', this.employeeAPI.username);
         localStorage.setItem('id',this.employeeAPI.id);
         localStorage.setItem('token',this.employeeAPI.token);
+        localStorage.setItem('role',this.employeeAPI.role);
         console.log(localStorage.getItem('username'))
         this.route.navigate(['']);
         this.message=this.employeeAPI.message;
         this.appService.setMessage(this.message);
         this.appService.onSwitch();
         console.log(this.appService.loginMode);
+        
       }
       else{
         this.formLogin.reset();
@@ -74,4 +76,5 @@ export interface employeeLogin {
  token: string;
   username: string;
   id: string;
+  role:string;
 }

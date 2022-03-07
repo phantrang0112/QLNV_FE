@@ -16,7 +16,9 @@
     </div>
     </div> -->
   <!-- <p>Value: {{ name.value }}</p> -->
-  <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
+  <h1>{{title}}</h1>
+  <h5 appMyColor>{{message}}</h5>
+  <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()"  >
     <div class="justify-content-center text-center mt-3">
       <img src="/assets/{{this.addEmployeeForm.controls.img.value}}" style="position: relative;"
         class="rounded-circle" alt="Cinque Terre" width="150"
@@ -31,18 +33,31 @@
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label >Fullname</mat-label>
       <input id="first-name" class="col-6" type="text" matInput
-        formControlName="name" [errorStateMatcher]="matcher" />
+        formControlName="name" [errorStateMatcher]="matcher" [readonly]="display"/>
       <mat-error *ngIf="addEmployeeForm.controls.name.hasError('required')">
         * <strong>họ và tên!</strong>
       </mat-error>
     </mat-form-field>
-
-    <br>
-    <br>
+    <mat-form-field *ngIf="id==0" class="example-full-width" appearance="fill">
+      <mat-label >username</mat-label>
+      <input id="username" class="col-6" type="text" matInput
+        formControlName="username" [errorStateMatcher]="matcher" [readonly]="display"/>
+      <mat-error *ngIf="addEmployeeForm.controls.username.hasError('required')">
+        * <strong>username!</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="id==0" class="example-full-width" appearance="fill">
+      <mat-label >Password</mat-label>
+      <input id="password" class="col-6" type="text" matInput
+        formControlName="password" [errorStateMatcher]="matcher"[readonly]="display" />
+      <mat-error *ngIf="addEmployeeForm.controls.password.hasError('required')">
+        * <strong>họ và tên!</strong>
+      </mat-error>
+    </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Phone</mat-label>
       <input class="col-6" id="last-name" type="text" matInput
-        formControlName="phone" [errorStateMatcher]="matcher">
+        formControlName="phone" [errorStateMatcher]="matcher" [readonly]="display">
       <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('maxLength')!=null">
         *Số điện thoại phải có 10 chữ số
       </mat-error>
@@ -51,12 +66,11 @@
         *Thêm <strong>số điện thoại!</strong>
       </mat-error>
     </mat-form-field>
-    <br>
-    <br>
+
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Address</mat-label>
       <input id="last-name" class="col-6" type="text" matInput
-        formControlName="address" [errorStateMatcher]="matcher">
+        formControlName="address" [errorStateMatcher]="matcher"[readonly]="display">
       <mat-error *ngIf="addEmployeeForm.controls.address.hasError('required')">
         *Thêm <strong>địa chỉ!</strong>
       </mat-error>
@@ -76,7 +90,7 @@
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Age</mat-label>
       <input type="number" matInput formControlName="age"
-        [errorStateMatcher]="matcher">
+        [errorStateMatcher]="matcher"[readonly]="display">
       <mat-error *ngIf="addEmployeeForm.controls.age.hasError('min') ||
         addEmployeeForm.controls.age.hasError('max')">
         *Tuổi phải lớn hơn 0 và nhỏ hơn 100!
