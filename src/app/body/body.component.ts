@@ -62,7 +62,13 @@ export class BodyComponent implements OnInit, OnDestroy {
       this.serverHttp.getEmployeePage(index, page_size, this.token).subscribe((data) => {
         this.listEmployeePaging = data;
         if ((this.listEmployeePaging.total / page_size) > 1) {
-          this.totalPagination = index + 1;
+          if( this.totalPagination<(this.listEmployeePaging.total / this.page_size) ){
+            this.totalPagination = index + 1;
+          }
+          else{
+            this.totalPagination = index;
+          }
+          
         }
         else {
           this.totalPagination = index;
@@ -115,11 +121,11 @@ export class BodyComponent implements OnInit, OnDestroy {
         })
       }
       else {
-          this.message="Xóa thất bại";
+        this.message = "Xóa thất bại";
       }
     }
-    else{
-      this.message='not have access';
+    else {
+      this.message = 'not have access';
     }
 
 
@@ -141,6 +147,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   }
   //Trang kế tiếp
   findPaginnation() {
+    console.log(this.listEmployeePaging.total / this.page_size)
     if (this.totalPagination < (this.listEmployeePaging.total / this.page_size)) {
       this.totalPagination += 1;
       if (this.indexPagination < this.totalPagination) {

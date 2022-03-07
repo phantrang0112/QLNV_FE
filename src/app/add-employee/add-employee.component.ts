@@ -45,8 +45,15 @@ export class AddEmployeeComponent implements OnInit {
       }
     }
       else {
-        this.message="Not have access";
-        this.display = true;
+        if(+localStorage.getItem('id')==this.id){
+          this.loadData(this.id);
+          this.title="My Account";
+        }
+        else{
+          this.message="Not have access";
+          this.display = true;
+        }
+        
       }
    
 

@@ -34,7 +34,9 @@ li{
  
   transition: 0.3s;
 }
-
+.active{
+  color: #2e8d9e !important;
+}
 li a:hover {
   color: #2e8d9e;
 }

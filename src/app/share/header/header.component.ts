@@ -27,6 +27,14 @@ export class HeaderComponent implements OnInit {
   ngDoCheck(){
 
   }
+  home(){
+    document.getElementById("home").classList.add('active');
+  }
+  listemployee(){
+    // $("a").removeClass('active');
+    // $('listemployee').add('active');
+    document.getElementById("listemployee").classList.add('active');
+  }
   routerLogin(){
 
     this.appService.setTitel("Login");

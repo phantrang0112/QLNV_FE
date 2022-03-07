@@ -22,6 +22,7 @@ import { ChangePassComponent } from './login/change-pass/change-pass.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UploadImgComponent } from './add-employee/upload-img/upload-img.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
             AppComponent,
@@ -35,6 +36,7 @@ import { UploadImgComponent } from './add-employee/upload-img/upload-img.compone
             RegisterComponent,
             ChangePassComponent,
             UploadImgComponent,
+            HomeComponent,
           ],
   imports: [
             BrowserModule,
