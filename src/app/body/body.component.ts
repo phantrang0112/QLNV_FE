@@ -110,12 +110,12 @@ export class BodyComponent implements OnInit, OnDestroy {
 
     if (localStorage.getItem('role') == 'ADMIN') {
       console.log(employeeId);
-      let choice = confirm("Bạn có chắc chắn muốn xóa không?");
+      let choice = confirm("Are you sure you want to delete?");
       console.log(choice);
       if (choice) {
         this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
           console.log('delete', data);
-          this.message = "xóa thành công!";
+          this.message = "successful delete!";
           this.service.setMessage(this.message);
           this.loadData();
         })
@@ -233,6 +233,7 @@ export interface Employee {
   img: string;
   pass: string;
   username: string;
+  email:string;
 }
 export interface paging {
   total: number,

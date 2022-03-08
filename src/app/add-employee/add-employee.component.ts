@@ -18,7 +18,7 @@ export class AddEmployeeComponent implements OnInit {
   newEmployee: Employee;
   id = 0;
   img;
-  title = "Employee";
+  title= "Add Employee";
  display = false;
   addEmployeeForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -27,7 +27,8 @@ export class AddEmployeeComponent implements OnInit {
     age: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100)]),
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
+    email: new FormControl('',[Validators.required,Validators.email])
   });
   constructor(private serverHttp: ServerhttpService, private route: ActivatedRoute, private router: Router, private appService: AppserviceService) {
   }
@@ -40,14 +41,21 @@ export class AddEmployeeComponent implements OnInit {
     console.log(trang) ;
     if (localStorage.getItem('role') == 'ADMIN') {
       this.display = false;
-      if (this.id > 0) {
+      if(+localStorage.getItem('id')==this.id){
+        this.title="My Account";
         this.loadData(this.id);
+       
+      }else if (this.id > 0) {
+        this.title="Employee";
+        this.loadData(this.id);
+
       }
     }
       else {
         if(+localStorage.getItem('id')==this.id){
-          this.loadData(this.id);
           this.title="My Account";
+          this.loadData(this.id);
+         
         }
         else{
           this.message="Not have access";
@@ -81,8 +89,6 @@ export class AddEmployeeComponent implements OnInit {
   public addEmployee() {
     this.newEmployee = this.addEmployeeForm.value;
     let id = +localStorage.getItem('id');
-   
-    
       console.log(id);
       //nếu có tồn tại id thì sửa
       if (this.id > 0) {
@@ -90,7 +96,7 @@ export class AddEmployeeComponent implements OnInit {
         if (this.id === id) {
           this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
             console.log(data);
-            this.message = "cập nhật thông tin thành công";
+            this.message = "Successfully updated";
 
             this.loadData(this.id);
           })
@@ -98,8 +104,9 @@ export class AddEmployeeComponent implements OnInit {
         else (
           this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
             console.log(data);
-            this.message = "cập nhật nhân viên thành công";
-            this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
+            this.message = "Employee update successful";
+            this.loadData(this.id);
+            // this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
           })
         )
 
@@ -110,7 +117,7 @@ export class AddEmployeeComponent implements OnInit {
           console.log(data);
           this.addEmployeeForm.reset();
           this.message = "thêm thành công";
-          this.router.navigate(['']);
+          this.router.navigate(['listemployee']);
         })
       }
       this.appService.setMessage(this.message);

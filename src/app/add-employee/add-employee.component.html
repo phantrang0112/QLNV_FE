@@ -19,7 +19,7 @@
   <h1>{{title}}</h1>
   <h5 appMyColor>{{message}}</h5>
   <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()"  >
-    <div class="justify-content-center text-center mt-3">
+    <div *ngIf="id>0" class="justify-content-center text-center mt-3">
       <img src="/assets/{{this.addEmployeeForm.controls.img.value}}" style="position: relative;"
         class="rounded-circle" alt="Cinque Terre" width="150"
         height="150" />
@@ -48,10 +48,22 @@
     </mat-form-field>
     <mat-form-field *ngIf="id==0" class="example-full-width" appearance="fill">
       <mat-label >Password</mat-label>
-      <input id="password" class="col-6" type="text" matInput
+      <input id="password" class="col-6" type="password" matInput
         formControlName="password" [errorStateMatcher]="matcher"[readonly]="display" />
       <mat-error *ngIf="addEmployeeForm.controls.password.hasError('required')">
-        * <strong>họ và tên!</strong>
+        * <strong>password!</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input class="col-6" id="last-name" type="email" matInput
+        formControlName="email" [errorStateMatcher]="matcher" [readonly]="display">
+      <mat-error *ngIf="addEmployeeForm.controls.email.hasError('email')">
+        *Email must be in the form @
+      </mat-error>
+
+      <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('required')">
+        *add <strong>email</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
@@ -75,8 +87,6 @@
         *Thêm <strong>địa chỉ!</strong>
       </mat-error>
     </mat-form-field>
-    <br>
-    <br>
     <!-- <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Img</mat-label>
       <input class="col-6" id="last-name" type="text" matInput
