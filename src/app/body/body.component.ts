@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AppserviceService } from '../services/appservice.service';
 import { ServerhttpService } from '../services/serverhttp.service';
 
@@ -86,7 +87,7 @@ export class BodyComponent implements OnInit, OnDestroy {
       })
     }
 
-
+    this.numberItem=this.listEmployeePaging.total;
     console.log(this.totalPagination, this.indexPagination);
     return this.dataSource;
   }
@@ -110,25 +111,75 @@ export class BodyComponent implements OnInit, OnDestroy {
 
     if (localStorage.getItem('role') == 'ADMIN') {
       console.log(employeeId);
-      let choice = confirm("Are you sure you want to delete?");
-      console.log(choice);
-      if (choice) {
-        this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
-          console.log('delete', data);
-          this.message = "successful delete!";
-          this.service.setMessage(this.message);
-          this.loadData();
-        })
-      }
-      else {
-        this.message = "Xóa thất bại";
-      }
+      // let choice =this.confirmDelete();
+      // console.log(choice);
+      Swal.fire({
+        title: 'Are you sure you want to delete?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
+            console.log('delete', data);
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+            this.loadData();
+          }
+          )          
+        }
+        else{
+          Swal.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      
+      })
     }
     else {
-      this.message = 'not have access';
+      Swal.fire(
+        'Cancelled',
+        'not have access :)',
+        'error'
+      )
+      // this.message = 'not have access';
     }
 
 
+  }
+  confirmDelete(){
+    let check:boolean;
+    Swal.fire({
+      title: 'Are you sure you want to delete?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        
+      }
+      else{
+        check= false;
+      }
+    })
+    console.log(check);
+    return check;
   }
   //Lấy dữ liệu cho trang đầu tiên
   public getEmployeePaging(page, page_size) {

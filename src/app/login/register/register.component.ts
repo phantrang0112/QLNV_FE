@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Employee } from 'src/app/body/body.component';
 import { AppserviceService } from 'src/app/services/appservice.service';
 import { ServerhttpService } from 'src/app/services/serverhttp.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -36,12 +37,23 @@ export class RegisterComponent implements OnInit {
         console.log(data);
       if(data!=null){
           this.message="Đăng kí thành công";
-          this.route.navigate(['formLogin']);
+          this.notify('formLogin');
         }
     })
     console.log(this.formRegister.value);
     this.formRegister.reset();
   }
-
+  notify(link){
+    Swal.fire({
+      icon: 'success',
+      title: 'successful registration' ,
+      text: 'Please check your email to get the password',
+      footer: '<a href="link">Sign in here</a>'
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.route.navigate([ link]);
+      }
+    })
+  }
 }
 
