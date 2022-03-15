@@ -39,18 +39,18 @@ export class HeaderComponent implements OnInit {
 
     this.appService.setTitel("Login");
     if(this.appService.loginMode){
-      this.route.navigate(['formLogin']);
+      this.route.navigate(['form-login']);
       this.loginMode=this.appService.btnLogin();
     }
     else{
       localStorage.removeItem('username');
       localStorage.removeItem('id');
       localStorage.removeItem('token');
-      this.route.navigate(['formLogin']);
+      this.route.navigate(['form-login']);
     }
   }
   myAccount(){
-    this.route.navigate(['employeeForm',localStorage.getItem('id')])
+    this.route.navigate(['employee-form',localStorage.getItem('id')])
   }
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";

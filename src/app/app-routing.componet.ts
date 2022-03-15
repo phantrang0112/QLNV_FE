@@ -11,12 +11,12 @@ import { RegisterComponent } from "./login/register/register.component";
 import { HeaderComponent } from "./share/header/header.component";
 
 const routes: Routes = [
-  { path: 'listemployee', component: BodyComponent, children:[{path:'header',component:HeaderComponent}]},
-  { path: 'employeeForm/:id', component: AddEmployeeComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}]},
-  { path: 'formLogin', component: LoginComponent,children:[{path:'header',component:HeaderComponent}]  },
-  { path: 'formRegister', component: RegisterComponent,children:[{path:'header',component:HeaderComponent}] },
-  { path: 'formChangePass', component: ChangePassComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}] },
-  { path: 'changeImg/:id', component:UploadImgComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}]  },
+  { path: 'list-employee', component: BodyComponent, children:[{path:'header',component:HeaderComponent}]},
+  { path: 'employee-form/:id', component: AddEmployeeComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}]},
+  { path: 'form-login', component: LoginComponent,children:[{path:'header',component:HeaderComponent}]  },
+  { path: 'form-register', component: RegisterComponent,children:[{path:'header',component:HeaderComponent}] },
+  { path: 'form-changePass', component: ChangePassComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}] },
+  { path: 'change-img/:id', component:UploadImgComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}]  },
   { path: '', component: HomeComponent}
   // { path: '**', pathMatch:'full', redirectTo: 'routePath' }
 ];

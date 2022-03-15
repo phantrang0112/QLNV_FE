@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
         console.log(data);
       if(data!=null){
           this.message="Đăng kí thành công";
-          this.notify('formLogin');
+          this.notify('form-login');
         }
     })
     console.log(this.formRegister.value);

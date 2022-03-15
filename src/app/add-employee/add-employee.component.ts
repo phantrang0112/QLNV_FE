@@ -117,7 +117,7 @@ export class AddEmployeeComponent implements OnInit {
           console.log(data);
           this.addEmployeeForm.reset();
           this.message = "thêm thành công";
-          this.router.navigate(['listemployee']);
+          this.router.navigate(['list-employee']);
         })
       }
       this.appService.setMessage(this.message);
@@ -138,7 +138,7 @@ export class AddEmployeeComponent implements OnInit {
       this.message = "Tài khoản chưa xác thực";
     }
     else {
-      this.router.navigate(['changeImg', this.id]);
+      this.router.navigate(['change-img', this.id]);
     }
   }
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);

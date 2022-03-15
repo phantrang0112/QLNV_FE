@@ -60,7 +60,7 @@ export class UploadImgComponent implements OnInit {
       console.log(choice);
       this.service.uploadImg(this.selectfile,this.id).subscribe((data)=>{
         this.employee=data;
-        this.router.navigate(['employeeForm', this.employee.id]);
+        this.router.navigate(['employee-form', this.employee.id]);
       })
     }
     else{

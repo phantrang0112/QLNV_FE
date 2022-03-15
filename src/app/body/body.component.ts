@@ -190,7 +190,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   public editEmployee(employeeId) {
     this.title = "Chỉnh sửa nhân viên";
     this.service.setTitel(this.title);
-    this.router.navigate(['employeeForm', employeeId]);// sử dụng dịch vụ router để chuyển hướng
+    this.router.navigate(['employee-form', employeeId]);// sử dụng dịch vụ router để chuyển hướng
   }
   //thay đổi số trang
   indexPaginationChage(value: number) {
