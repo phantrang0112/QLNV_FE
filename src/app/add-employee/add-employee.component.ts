@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Employee } from '../login/login.component';
 import { AppserviceService } from '../services/appservice.service';
 import { ServerhttpService } from '../services/serverhttp.service';
@@ -44,7 +45,7 @@ export class AddEmployeeComponent implements OnInit {
       if(+localStorage.getItem('id')==this.id){
         this.title="My Account";
         this.loadData(this.id);
-       
+
       }else if (this.id > 0) {
         this.title="Employee";
         this.loadData(this.id);
@@ -55,15 +56,20 @@ export class AddEmployeeComponent implements OnInit {
         if(+localStorage.getItem('id')==this.id){
           this.title="My Account";
           this.loadData(this.id);
-         
+
         }
         else{
+          Swal.fire(
+            'Cancelled',
+            'Not have access :)',
+            'error'
+          )
           this.message="Not have access";
           this.display = true;
         }
-        
+
       }
-   
+
 
 
     this.appService.setCheck(false);
@@ -116,13 +122,13 @@ export class AddEmployeeComponent implements OnInit {
         this.serverHttp.postEmployee(this.newEmployee).subscribe((data) => {
           console.log(data);
           this.addEmployeeForm.reset();
-          this.message = "thêm thành công";
+          this.message = "add staff successfully";
           this.router.navigate(['list-employee']);
         })
       }
       this.appService.setMessage(this.message);
-    
-  
+
+
 
   }
 
@@ -135,7 +141,7 @@ export class AddEmployeeComponent implements OnInit {
 
     let id = this.id;
     if (id == 0) {
-      this.message = "Tài khoản chưa xác thực";
+      this.message = "Unverified account";
     }
     else {
       this.router.navigate(['change-img', this.id]);

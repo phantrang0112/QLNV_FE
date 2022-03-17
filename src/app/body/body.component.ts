@@ -47,6 +47,7 @@ export class BodyComponent implements OnInit, OnDestroy {
 
     // });
     this.token = localStorage.getItem('token');
+    this.indexPagination=1;
     this.serverHttp.getEmployeePage(this.indexPagination, this.page_size, this.token).subscribe((data) => {
       this.listEmployeePaging = data;
       this.numberItem = this.listEmployeePaging.total;
@@ -62,18 +63,18 @@ export class BodyComponent implements OnInit, OnDestroy {
     if (this.searchCheck == false) {
       this.serverHttp.getEmployeePage(index, page_size, this.token).subscribe((data) => {
         this.listEmployeePaging = data;
-        if ((this.listEmployeePaging.total / page_size) > 1) {
-          if( this.totalPagination<(this.listEmployeePaging.total / this.page_size) ){
-            this.totalPagination = index + 1;
-          }
-          else{
-            this.totalPagination = index;
-          }
-          
-        }
-        else {
-          this.totalPagination = index;
-        }
+        // if ((this.listEmployeePaging.total / page_size) > 1) {
+        //   if( this.totalPagination<(this.listEmployeePaging.total / this.page_size) ){
+        //     this.totalPagination = index + 1;
+        //   }
+        //   else{
+        //     this.totalPagination = index;
+        //   }
+
+        // }
+        // else {
+        //   this.totalPagination = index;
+        // }
         this.dataSource = this.listEmployeePaging.list;
         console.log(this.listEmployeePaging);
 
@@ -86,8 +87,8 @@ export class BodyComponent implements OnInit, OnDestroy {
         console.log(this.listEmployeePaging);
       })
     }
-
     this.numberItem=this.listEmployeePaging.total;
+    console.log(this.numberItem);
     console.log(this.totalPagination, this.indexPagination);
     return this.dataSource;
   }
@@ -130,9 +131,9 @@ export class BodyComponent implements OnInit, OnDestroy {
               'Your file has been deleted.',
               'success'
             )
-            this.loadData();
+            this.ngOnInit();
           }
-          )          
+          )
         }
         else{
           Swal.fire(
@@ -141,7 +142,7 @@ export class BodyComponent implements OnInit, OnDestroy {
             'error'
           )
         }
-      
+
       })
     }
     else {
@@ -172,7 +173,7 @@ export class BodyComponent implements OnInit, OnDestroy {
           'Your file has been deleted.',
           'success'
         )
-        
+
       }
       else{
         check= false;
@@ -198,9 +199,10 @@ export class BodyComponent implements OnInit, OnDestroy {
   }
   //Trang kế tiếp
   findPaginnation() {
-    console.log(this.listEmployeePaging.total / this.page_size)
+    console.log(this.listEmployeePaging.total / this.page_size+"tong"+this.totalPagination)
+
     if (this.totalPagination < (this.listEmployeePaging.total / this.page_size)) {
-      this.totalPagination += 1;
+      this.totalPagination ++;
       if (this.indexPagination < this.totalPagination) {
         this.indexPagination += 1;
       }
@@ -212,6 +214,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   //Trang đầu tiên
   firtPage() {
     this.indexPagination = 1;
+    this.totalPagination= this.indexPagination+1;
     this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
   }
 
