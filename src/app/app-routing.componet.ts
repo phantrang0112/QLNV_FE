@@ -8,6 +8,7 @@ import { HomeComponent } from "./home/home.component";
 import { ChangePassComponent } from "./login/change-pass/change-pass.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./login/register/register.component";
+import { NotifyComponent } from "./notify/notify.component";
 import { HeaderComponent } from "./share/header/header.component";
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'form-register', component: RegisterComponent,children:[{path:'header',component:HeaderComponent}] },
   { path: 'form-changePass', component: ChangePassComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}] },
   { path: 'change-img/:id', component:UploadImgComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}]  },
-  { path: '', component: HomeComponent}
+  { path: '', component: HomeComponent},
+  {path:'test', component: NotifyComponent}
   // { path: '**', pathMatch:'full', redirectTo: 'routePath' }
 ];
 @NgModule({

@@ -34,13 +34,11 @@ export class RegisterComponent implements OnInit {
     newEmployee=this.formRegister.value;
     newEmployee.img='avt.jpg';
     this.service.register(newEmployee).subscribe((data)=>{
-        console.log(data);
       if(data!=null){
           this.message="Đăng kí thành công";
           this.notify('form-login');
         }
     })
-    console.log(this.formRegister.value);
     this.formRegister.reset();
   }
   notify(link){

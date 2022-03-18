@@ -10,6 +10,7 @@
     <li ><a id="changepass" [routerLink]="['form-changePass']" routerLinkActive="router-link-active">Change Password</a></li>
     <li ><a id="register" *ngIf="loginMode"  [routerLink]="['form-register']"  routerLinkActive="router-link-active">Register</a></li>
     <li ><a  id="login" (click)="routerLogin()">{{loginMode?"Login":"Logout"}}</a></li>
+    <li ><a  id="login"  [routerLink]="['test']" routerLinkActive="router-link-active">test</a></li>
     <!-- <li [routerLink]="['/employeeForm',]" routerLinkActive="router-link-active">Thông tin cá nhân</li> -->
   </ul>
 </header>

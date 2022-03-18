@@ -28,13 +28,11 @@ export class ChangePassComponent implements OnInit {
     this.employee.username= localStorage.getItem('username');
     this.service.changePass(this.employee).subscribe((data)=>{
       this.employeeChange= data;
-      console.log(data);
       if(this.employeeChange.token!=null){
         localStorage.clear();
         localStorage.setItem('username', this.employeeChange.username);
         localStorage.setItem('id',this.employeeChange.id);
         localStorage.setItem('token',this.employeeChange.token);
-        console.log(localStorage.getItem('username'));
         this.formChangePass.reset();
         this.message=this.employeeChange.message;
       }
@@ -42,8 +40,6 @@ export class ChangePassComponent implements OnInit {
         this.formChangePass.reset();
         this.message=this.employeeChange.message;
       }
-
-    console.log(data);
     })
     // this.service.
   }

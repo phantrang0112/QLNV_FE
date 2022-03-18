@@ -30,30 +30,22 @@ export class LoginComponent implements OnInit {
   }
   public login(){
     this.employee= this.formLogin.value;
-    console.log( this.employee);
     this.serverHttp.generateToken(this.employee).subscribe((data)=>{
     this.employeeAPI= data;
-      console.log(data);
       if(this.employeeAPI.token!=null){
         localStorage.setItem('username', this.employeeAPI.username);
         localStorage.setItem('id',this.employeeAPI.id);
         localStorage.setItem('token',this.employeeAPI.token);
         localStorage.setItem('role',this.employeeAPI.role);
-        console.log(localStorage.getItem('username'))
         this.route.navigate(['']);
         this.message=this.employeeAPI.message;
         this.appService.setMessage(this.message);
         this.appService.onSwitch();
-        console.log(this.appService.loginMode);
-        
       }
       else{
         this.formLogin.reset();
         this.message=this.employeeAPI.message;
       }
-
-    console.log(data);
-
     })
   }
   matcher1 = new MyErrorStateMatcher();

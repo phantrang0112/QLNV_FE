@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppserviceService } from 'src/app/services/appservice.service';
 import { ServerhttpService } from 'src/app/services/serverhttp.service';
@@ -8,7 +8,7 @@ import { ServerhttpService } from 'src/app/services/serverhttp.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, DoCheck {
   // title="Danh sách nhân viên";
 
   employee;
@@ -21,11 +21,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     // this.appService.setTitel(this.title);
     this.loginMode=this.appService.btnLogin();
-    console.log(this.loginMode);
     // this.numberItem= this.appService.tongSoNhanVien();
   }
   ngDoCheck(){
-
+    this.ngOnInit();
+    this.loginMode=this.appService.btnLogin();
   }
   home(){
     // document.getElementById("home").classList.add('active');
@@ -43,10 +43,14 @@ export class HeaderComponent implements OnInit {
       this.loginMode=this.appService.btnLogin();
     }
     else{
+
       localStorage.removeItem('username');
       localStorage.removeItem('id');
       localStorage.removeItem('token');
+      this.appService.onSwitch();
+      this.loginMode=this.appService.btnLogin();
       this.route.navigate(['form-login']);
+
     }
   }
   myAccount(){

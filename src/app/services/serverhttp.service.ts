@@ -13,6 +13,7 @@ export class ServerhttpService {
   private REST_API_SERVER = "http://localhost:3000";// server của json
   private REST_API_SERVER1 = "http://localhost:8080";
   token = localStorage.getItem('token');
+
   private httpOptions = {
     headers: new HttpHeaders({
       // 'Content-Type': 'application/json',
@@ -31,12 +32,10 @@ export class ServerhttpService {
         'Authorization': 'Bearer ' + this.token,
         // "Access-Control-Allow-Origin":"*"
       }),
-     
+
     };
     if (this.token != null) {
-      console.log(this.token);
        this.httpOptions.headers.set('Authorization', string);
-     console.log(this.httpOptions.headers.get('Authorization'))
       const url = `${this.REST_API_SERVER1}/Employee/getPage` + `?page=` + page + `&page-size=` + page_size;
       return this.httpclient.get<any>(url, httpOptionss).pipe(catchError(this.handleError));
     }
@@ -49,6 +48,7 @@ export class ServerhttpService {
   }
   // lấy 1 nhân viên thông qua id
   public getEmployeeId(employeeId: number) {
+    console.log(localStorage.getItem('token'));
     const url = `${this.REST_API_SERVER1}/Employee/` + employeeId;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
@@ -92,8 +92,6 @@ export class ServerhttpService {
     // this.httpOptions.headers.append( 'Content-Type',"multipart/form-data");
     const formData = new FormData();
     formData.append('file',data);
-    console.log(this.httpOptions.headers.get('Authorization'));    
-    console.log(data);
     // this.httpOptions.headers.set("Content-Type", "multipart/form-data");
     const url = `${this.REST_API_SERVER1}/Employee/upload/`+id;
     return this.httpclient.post<any>(url,formData,{headers:this.httpOptions.headers,reportProgress: true,

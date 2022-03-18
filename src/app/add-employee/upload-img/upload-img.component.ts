@@ -1,6 +1,6 @@
 import { Component, Directive, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';  
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { ServerhttpService } from 'src/app/services/serverhttp.service';
@@ -36,35 +36,28 @@ export class UploadImgComponent implements OnInit {
     this.id=+this.route.snapshot.paramMap.get('id');
   }
   changeImg(event) {
-    console.log(event);
     this.selectfile = (event.target as HTMLInputElement).files[0];
-    console.log(event);
-    console.log(this.selectfile);
-
     if (this.selectfile) {
       // var render = new FileReader();
       // render.readAsDataURL(this.selectfile)
       // render.onload = (event: any) => {
       // }
       this.url = this.selectfile.name;
-    
+
     }
 
   }
   uploadImg(){
     let choice = confirm("Bạn muốn cập nhật ảnh ?");
-    console.log(choice);
-   
     // console.log(this.uploadImgForm.get('fileImg').value);
     if (choice&& this.selectfile) {
-      console.log(choice);
       this.service.uploadImg(this.selectfile,this.id).subscribe((data)=>{
         this.employee=data;
         this.router.navigate(['employee-form', this.employee.id]);
       })
     }
     else{
-      
+
     }
   }
 }

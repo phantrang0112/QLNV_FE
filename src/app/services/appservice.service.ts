@@ -48,7 +48,6 @@ export class AppserviceService {
     this.token=token;
   }
   public btnLogin(){
-    console.log(this.loginMode);
     return this.loginMode;
   }
   onSwitch(){
@@ -66,9 +65,8 @@ export class AppserviceService {
   public setTitel(title){
     // if(this.titel!=titel){
       this.oldTitle= this.title
-    
+
     this.title=title;
-    console.log(this.title+"hmmm"+this.oldTitle)
   }
   public getOldTitle(){
     return this.oldTitle;

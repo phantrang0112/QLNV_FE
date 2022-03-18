@@ -9,7 +9,6 @@ export class AuthGuard implements CanActivate{
   canActivate(router: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       if (localStorage.getItem('token')) {
           // logged in so return true
-          console.log(localStorage.getItem('token'));
           return true;
       }
 
