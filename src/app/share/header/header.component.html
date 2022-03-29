@@ -7,10 +7,10 @@
     <li><a id="listemployee" *ngIf="!loginMode" [routerLink]="['list-employee']" routerLinkActive="router-link-active" (click)="listemployee()">List Employee</a></li>
     <li ><a id="addemployee"  [routerLink]="['/employee-form',0]" routerLinkActive="router-link-active">Add Employee</a></li>
     <li ><a  id="myaccount" *ngIf="loginMode==false" (click)="myAccount()">My Account</a></li>
-    <li ><a id="changepass" [routerLink]="['form-changePass']" routerLinkActive="router-link-active">Change Password</a></li>
+    <li ><a id="changepass" *ngIf="loginMode==false"  [routerLink]="['form-changePass']" routerLinkActive="router-link-active">Change Password</a></li>
     <li ><a id="register" *ngIf="loginMode"  [routerLink]="['form-register']"  routerLinkActive="router-link-active">Register</a></li>
     <li ><a  id="login" (click)="routerLogin()">{{loginMode?"Login":"Logout"}}</a></li>
-    <li ><a  id="login"  [routerLink]="['test']" routerLinkActive="router-link-active">test</a></li>
+    <!-- <li ><a  id="login"  [routerLink]="['test']" routerLinkActive="router-link-active">test</a></li> -->
     <!-- <li [routerLink]="['/employeeForm',]" routerLinkActive="router-link-active">Thông tin cá nhân</li> -->
   </ul>
 </header>

@@ -2,8 +2,7 @@
 <section class="container">
   <h1>{{title}}</h1>
   <h5 appMyColor>{{message}}</h5>
-  <p class="count" style="text-align: right;" appMyColor>{{numberItem}} Nhân
-    viên</p>
+  <p class="count" style="text-align: right;" appMyColor>{{numberItem}} Employee</p>
   <form [formGroup]="searchGroup" (ngSubmit)="search()">
     <div class="text-center">
 
@@ -69,9 +68,8 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination d-flex justify-content-md-end
           justify-content-center">
-          <li class="page-item"><a class="page-link" (click)="firtPage()">Đầu</a></li>
-          <li class="page-item"><a class="page-link" (click)="prviousPage()">Trang
-              trước</a></li>
+          <li class="page-item"><a class="page-link" (click)="firtPage()">first</a></li>
+          <li class="page-item"><a class="page-link" (click)="prviousPage()">previous</a></li>
           <!--                    <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
           <li class="page-item col-md-1 col-2 px-0">
             <!--                        <input class="form-control shadow-none rounded-0" type="text" placeholder="2/5">-->
@@ -88,10 +86,10 @@
           </li>
           <li class="page-item">
             <button class="btn btn-primary rounded-0"
-              (click)="findPaginnation()">Đi</button>
+              (click)="findPaginnation()">next</button>
           </li>
           <!-- <li class="page-item"><a class="page-link" (click)="nextPage()">Trang kế</a></li> -->
-          <li class="page-item"><a class="page-link" (click)="lastPage()">Cuối</a></li>
+          <li class="page-item"><a class="page-link" (click)="lastPage()">last</a></li>
         </ul>
       </nav>
     </div>
