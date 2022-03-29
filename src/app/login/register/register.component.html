@@ -28,7 +28,7 @@
                 <div class="form-outline mb-4">
                   <label class="form-label" >Phone</label>
                   <input type="text"class="form-control form-control-lg" formControlName="phone" />
-                  <small appMyColor *ngIf="formRegister.get('phone').invalid && formRegister.get('phone').touched">Phone no is Required(minimum length 10,numbers are only allowed)</small>
+                  <small appMyColor *ngIf="formRegister.get('phone').hasError('pattern') && formRegister.get('phone').touched">Phone no is Required(minimum length 10,numbers are only allowed)</small>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -41,7 +41,6 @@
                   <label class="form-label" for="form3Example4cdg">Age</label>
                   <input type="number" formControlName="age" class="form-control form-control-lg" />
                   <small appMyColor *ngIf="formRegister.get('age').invalid && formRegister.get('age').touched">Name is required</small>
-
                 </div>
                 <div class="d-flex justify-content-center">
                   <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>

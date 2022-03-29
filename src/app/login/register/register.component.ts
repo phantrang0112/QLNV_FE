@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 export class RegisterComponent implements OnInit {
   formRegister= new FormGroup({
     username: new FormControl(null,[Validators.required]),
-    phone: new FormControl(null,[Validators.required, Validators.pattern('^\\s*(?:\\+?(\\d{3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')
+    phone: new FormControl(null,[Validators.required, Validators.pattern('^([^\s]*)$')
   ]),
     address: new FormControl(null,[Validators.required]),
     name: new FormControl(null,[Validators.required]),
