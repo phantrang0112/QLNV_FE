@@ -48,7 +48,6 @@ export class ServerhttpService {
   }
   // lấy 1 nhân viên thông qua id
   public getEmployeeId(employeeId: number) {
-    console.log(localStorage.getItem('token'));
     const url = `${this.REST_API_SERVER1}/Employee/` + employeeId;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }

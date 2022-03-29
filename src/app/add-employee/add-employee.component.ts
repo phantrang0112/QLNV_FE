@@ -35,11 +35,9 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.title);
     this.appService.setTitel(this.title);
     this.id = +this.route.snapshot.paramMap.get('id');// Lấy giá trị tại ô id( muốn đổi từ String thành số thêm dấu "+ "đằng trước)
    let trang=localStorage.getItem('name');
-    console.log(trang) ;
     if (localStorage.getItem('role') == 'ADMIN') {
       this.display = false;
       if(+localStorage.getItem('id')==this.id){
@@ -80,7 +78,6 @@ export class AddEmployeeComponent implements OnInit {
   // }
   //Load dữ liệu lên form trong trường hợp edit
   private loadData(id) {
-    console.log('loaddata', id);
     this.serverHttp.getEmployeeId(id).subscribe((data) => {
       for (const controlName in this.addEmployeeForm.controls) {
         if (controlName) {
@@ -95,13 +92,11 @@ export class AddEmployeeComponent implements OnInit {
   public addEmployee() {
     this.newEmployee = this.addEmployeeForm.value;
     let id = +localStorage.getItem('id');
-      console.log(id);
       //nếu có tồn tại id thì sửa
       if (this.id > 0) {
 
         if (this.id == id) {
           this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
-            console.log(data);
             this.message = "Successfully updated";
 
             this.loadData(this.id);
@@ -109,7 +104,7 @@ export class AddEmployeeComponent implements OnInit {
         }
         else (
           this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
-            console.log(data);
+
             this.message = "Employee update successful";
             this.loadData(this.id);
             // this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
@@ -120,7 +115,6 @@ export class AddEmployeeComponent implements OnInit {
       else {// nếu id bằng 0 thì thêm vào
         this.newEmployee.img='avt.jpg';
         this.serverHttp.postEmployee(this.newEmployee).subscribe((data) => {
-          console.log(data);
           this.message = "add staff successfully";
             Swal.fire({
               icon: 'success',
