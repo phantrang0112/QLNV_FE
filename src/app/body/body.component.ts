@@ -59,7 +59,6 @@ export class BodyComponent implements OnInit, OnDestroy {
     })
   }
   private loadListEmployees(index: number, page_size: number) {
-    console.log(this.searchCheck);
     if (this.searchCheck == false) {
       this.serverHttp.getEmployeePage(index, page_size, this.token).subscribe((data) => {
         this.listEmployeePaging = data;
@@ -76,20 +75,15 @@ export class BodyComponent implements OnInit, OnDestroy {
         //   this.totalPagination = index;
         // }
         this.dataSource = this.listEmployeePaging.list;
-        console.log(this.listEmployeePaging);
-
       })
     }
     else {
       this.serverHttp.getEmployeesSearch(this.searchGroup.controls.search.value, index, page_size).subscribe((data) => {
         this.listEmployeePaging = data;
         this.dataSource = this.listEmployeePaging.list;
-        console.log(this.listEmployeePaging);
       })
     }
     this.numberItem=this.listEmployeePaging.total;
-    console.log(this.numberItem);
-    console.log(this.totalPagination, this.indexPagination);
     return this.dataSource;
   }
   ngOnDestroy() {
@@ -125,7 +119,6 @@ export class BodyComponent implements OnInit, OnDestroy {
       }).then((result) => {
         if (result.isConfirmed) {
           this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
-            console.log('delete', data);
             Swal.fire(
               'Deleted!',
               'Your file has been deleted.',
@@ -173,13 +166,11 @@ export class BodyComponent implements OnInit, OnDestroy {
           'Your file has been deleted.',
           'success'
         )
-
       }
       else{
         check= false;
       }
     })
-    console.log(check);
     return check;
   }
   //Lấy dữ liệu cho trang đầu tiên
@@ -199,8 +190,6 @@ export class BodyComponent implements OnInit, OnDestroy {
   }
   //Trang kế tiếp
   findPaginnation() {
-    console.log(this.listEmployeePaging.total / this.page_size+"tong"+this.totalPagination)
-
     if (this.totalPagination < (this.listEmployeePaging.total / this.page_size)) {
       this.totalPagination ++;
       if (this.indexPagination < this.totalPagination) {
@@ -255,12 +244,10 @@ export class BodyComponent implements OnInit, OnDestroy {
     this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
   }
   search() {
-    console.log(this.searchGroup.controls.search.value);
     this.searchCheck = true;
     if (this.searchGroup.controls.search.value) {
       this.serverHttp.getEmployeesSearch(this.searchGroup.controls.search.value, this.indexPagination, this.page_size).subscribe((data) => {
         this.listEmployeePaging = data;
-        console.log(data);
         this.dataSource = this.listEmployeePaging.list;
         if ((this.listEmployeePaging.total / this.page_size) > 1) {
           this.totalPagination = this.indexPagination + 1;
@@ -287,6 +274,7 @@ export interface Employee {
   img: string;
   pass: string;
   username: string;
+  password:string;
   email:string;
 }
 export interface paging {

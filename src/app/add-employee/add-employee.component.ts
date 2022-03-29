@@ -3,7 +3,7 @@ import { FormControl, FormControlName, FormGroup, FormGroupDirective, NgForm, Va
 import { ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Employee } from '../login/login.component';
+import { Employee } from '../body/body.component';
 import { AppserviceService } from '../services/appservice.service';
 import { ServerhttpService } from '../services/serverhttp.service';
 
@@ -99,7 +99,7 @@ export class AddEmployeeComponent implements OnInit {
       //nếu có tồn tại id thì sửa
       if (this.id > 0) {
 
-        if (this.id === id) {
+        if (this.id == id) {
           this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
             console.log(data);
             this.message = "Successfully updated";
@@ -118,18 +118,22 @@ export class AddEmployeeComponent implements OnInit {
 
       }
       else {// nếu id bằng 0 thì thêm vào
-
+        this.newEmployee.img='avt.jpg';
         this.serverHttp.postEmployee(this.newEmployee).subscribe((data) => {
           console.log(data);
-          this.addEmployeeForm.reset();
           this.message = "add staff successfully";
-          this.router.navigate(['list-employee']);
+            Swal.fire({
+              icon: 'success',
+              title: 'add staff successfully' ,
+            }).then((result)=>{
+              if(result.isConfirmed){
+                this.router.navigate(['list-employee']);
+              }
+            })
+
         })
       }
       this.appService.setMessage(this.message);
-
-
-
   }
 
 
