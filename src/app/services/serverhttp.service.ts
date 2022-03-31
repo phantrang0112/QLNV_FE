@@ -22,8 +22,11 @@ export class ServerhttpService {
       // "Content-Type": "multipart/form-data",
     }),
   };
-
-  constructor(private httpclient: HttpClient, private serverConfig: LinkConfigService) { }
+  server:string;
+  constructor(private httpclient: HttpClient, private serverConfig: LinkConfigService) {
+    this.server=serverConfig.getRestAPISpringBoot();
+    console.log(this.server);
+   }
   public getEmployeePage(page: number, page_size: number, token: string) {
     this.token = token;
     let string=  'Bearer ' + this.token;
@@ -37,55 +40,56 @@ export class ServerhttpService {
     };
     if (this.token != null) {
        this.httpOptions.headers.set('Authorization', string);
-      const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/getPage` + `?page=` + page + `&page-size=` + page_size;
+      const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/get-page` + `?page=` + page + `&page-size=` + page_size;
       return this.httpclient.get<any>(url, httpOptionss).pipe(catchError(this.handleError));
     }
   }
   // lấy toàn bộ  nhân viên
   public getProfile(token): Observable<any> {
     this.token = token;
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee`;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee`;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
   // lấy 1 nhân viên thông qua id
   public getEmployeeId(employeeId: number) {
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/` + employeeId;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/` + employeeId;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
   // thêm 1 nhân viên
   public postEmployee(data: Employee): Observable<any> {
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee`;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee`;
     return this.httpclient.post<any>(url, data, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
   // Chinh sửa 1 nhân viên
   public editEmployee(employeeId: number, data): Observable<any> {// truyền vào id và giá trị của data
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/edit/` + employeeId; // thêm id đằng sau để trỏ tới đối tượng có id đó
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/edit/` + employeeId; // thêm id đằng sau để trỏ tới đối tượng có id đó
     return this.httpclient.put<any>(url, data, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
   // Xóa 1 nhân viên thông qua id
   public deleteEmployee(employeeId: number) {
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/` + employeeId;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/` + employeeId;
     return this.httpclient.delete<any>(url,this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
 
   public login(data): Observable<any> {
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/authenticatite`;
+    const url = `${this.server}/Employee/authenticatite`;
     return this.httpclient.post<any>(url, data, this.httpOptions).pipe(catchError(this.handleError))
   }
   public generateToken(data) {
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/authenticate`;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/authenticate`;
+    console.log(url);
     return this.httpclient.post<any>(url, data).pipe(catchError(this.handleError))
   }
   public getEmployeesSearch(name: string, page: number, page_size: number): Observable<any> {
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/search/` + name + "/" + `?page=` + page + `&page-size=` + page_size;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/search/` + name + "/" + `?page=` + page + `&page-size=` + page_size;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));
   }
   public register(data){
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/register`;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/register`;
     return this.httpclient.post<any>(url, data).pipe(catchError(this.handleError))
   }
   public changePass(data){
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/changepass`;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/change-pass`;
     return this.httpclient.put<any>(url, data,this.httpOptions).pipe(catchError(this.handleError))
   }
   public uploadImg(data,id:number){
@@ -93,7 +97,7 @@ export class ServerhttpService {
     const formData = new FormData();
     formData.append('file',data);
     // this.httpOptions.headers.set("Content-Type", "multipart/form-data");
-    const url = `${this.serverConfig.getRestAPISpringBoot}/Employee/upload/`+id;
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/upload/`+id;
     return this.httpclient.post<any>(url,formData,{headers:this.httpOptions.headers,reportProgress: true,
       responseType: 'json'}).pipe(catchError(this.handleError))
   }

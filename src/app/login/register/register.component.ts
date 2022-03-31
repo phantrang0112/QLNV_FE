@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/body/body.component';
 import { AppserviceService } from 'src/app/services/appservice.service';
+import { NotifyService } from 'src/app/services/notify.service';
 import { ServerhttpService } from 'src/app/services/serverhttp.service';
 import Swal from 'sweetalert2';
 
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
   })
   title="Register";
   message="";
-  constructor(private service: ServerhttpService, private route: Router, private appService: AppserviceService) { }
+  constructor(private service: ServerhttpService, private route: Router, private appService: AppserviceService,private notify: NotifyService) { }
 
   ngOnInit() {
     this.appService.setTitel(this.title);
@@ -35,23 +36,13 @@ export class RegisterComponent implements OnInit {
     newEmployee.img='avt.jpg';
     this.service.register(newEmployee).subscribe((data)=>{
       if(data!=null){
-          this.message="Đăng kí thành công";
-          this.notify('form-login');
+        this.notify.notifySuccess('Successful Registration','form-login','Please check your email to get the password');
+        }
+        else{
+          this.notify.notifiError('Error',"Please re-register");
         }
     })
     this.formRegister.reset();
-  }
-  notify(link){
-    Swal.fire({
-      icon: 'success',
-      title: 'successful registration' ,
-      text: 'Please check your email to get the password',
-      footer: '<a href="link">Sign in here</a>'
-    }).then((result)=>{
-      if(result.isConfirmed){
-        this.route.navigate([ link]);
-      }
-    })
   }
 }
 

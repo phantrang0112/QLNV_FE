@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Employee } from '../body/body.component';
 import { AppserviceService } from '../services/appservice.service';
+import { NotifyService } from '../services/notify.service';
 import { ServerhttpService } from '../services/serverhttp.service';
 
 @Component({
@@ -31,10 +32,10 @@ export class AddEmployeeComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
     email: new FormControl('',[Validators.required,Validators.email])
   });
-  constructor(private serverHttp: ServerhttpService, private route: ActivatedRoute, private router: Router, private appService: AppserviceService) {
+  constructor(private serverHttp: ServerhttpService, private route: ActivatedRoute, private router: Router, private appService: AppserviceService,private notify:NotifyService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.appService.setTitel(this.title);
     this.id = +this.route.snapshot.paramMap.get('id');// Lấy giá trị tại ô id( muốn đổi từ String thành số thêm dấu "+ "đằng trước)
    let trang=localStorage.getItem('name');
@@ -57,13 +58,10 @@ export class AddEmployeeComponent implements OnInit {
 
         }
         else{
-          Swal.fire(
-            'Cancelled',
-            'Not have access :)',
-            'error'
-          )
-          this.message="Not have access";
+          this.notify.blockPermission();
           this.display = true;
+          await new Promise(f => setTimeout(f, 1000));
+          this.router.navigate(['']);
         }
 
       }
@@ -97,15 +95,13 @@ export class AddEmployeeComponent implements OnInit {
 
         if (this.id == id) {
           this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
-            this.message = "Successfully updated";
-
+            this.notify.notifySuccessToggerMessage('Update success!');
             this.loadData(this.id);
           })
         }
         else (
           this.serverHttp.editEmployee(this.id, this.newEmployee).subscribe((data) => {
-
-            this.message = "Employee update successful";
+            this.notify.notifySuccessToggerMessage('Employee update successful!');
             this.loadData(this.id);
             // this.router.navigate(['']);// sử dụng dịch vụ router để chuyển hướng về trang chủ sau khi chỉnh sửa.
           })
@@ -116,15 +112,7 @@ export class AddEmployeeComponent implements OnInit {
         this.newEmployee.img='avt.jpg';
         this.serverHttp.postEmployee(this.newEmployee).subscribe((data) => {
           this.message = "add staff successfully";
-            Swal.fire({
-              icon: 'success',
-              title: 'add staff successfully' ,
-            }).then((result)=>{
-              if(result.isConfirmed){
-                this.router.navigate(['list-employee']);
-              }
-            })
-
+          this.notify.notifySuccess('Success','add staff successfully','list-employee');
         })
       }
       this.appService.setMessage(this.message);
@@ -139,7 +127,7 @@ export class AddEmployeeComponent implements OnInit {
 
     let id = this.id;
     if (id == 0) {
-      this.message = "Unverified account";
+      this.notify.notifiError('Error',"Unverified account");
     }
     else {
       this.router.navigate(['change-img', this.id]);

@@ -24,7 +24,7 @@
         class="rounded-circle" alt="Cinque Terre" width="150"
         height="150" />
       <button
-        style="width: 30px; height: 30px; position: absolute; left: 67%; top: 33%; background: transparent; border: none;" (click)="changeImg()">
+        style="width: 30px; height: 30px; position: absolute; left: 67%; top: 27%; background: transparent; border: none;" (click)="changeImg()">
         <i class="fa fa-camera"></i>
       </button>
     </div>
@@ -35,7 +35,7 @@
       <input id="first-name" class="col-6" type="text" matInput
         formControlName="name" [errorStateMatcher]="matcher" [readonly]="display"/>
       <mat-error *ngIf="addEmployeeForm.controls.name.hasError('required')">
-        * <strong>họ và tên!</strong>
+        *Add <strong>Full Name!</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="id==0" class="example-full-width" appearance="fill">
@@ -43,7 +43,7 @@
       <input id="username" class="col-6" type="text" matInput
         formControlName="username" [errorStateMatcher]="matcher" [readonly]="display"/>
       <mat-error *ngIf="addEmployeeForm.controls.username.hasError('required')">
-        * <strong>username!</strong>
+        *Add <strong>username!</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="id==0" class="example-full-width" appearance="fill">
@@ -51,7 +51,7 @@
       <input id="password" class="col-6" type="password" matInput
         formControlName="password" [errorStateMatcher]="matcher"[readonly]="display" />
       <mat-error *ngIf="addEmployeeForm.controls.password.hasError('required')">
-        * <strong>password!</strong>
+        *Add <strong>password!</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
@@ -63,7 +63,7 @@
       </mat-error>
 
       <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('required')">
-        *add <strong>email</strong>
+        *Add <strong>email</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
@@ -71,11 +71,11 @@
       <input class="col-6" id="last-name" type="text" matInput
         formControlName="phone" [errorStateMatcher]="matcher" [readonly]="display">
       <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('maxLength')!=null">
-        *Số điện thoại phải có 10 chữ số
+        *Phone number must have 10 digits
       </mat-error>
 
       <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('required')">
-        *Thêm <strong>số điện thoại!</strong>
+        *app-add-employee <strong>Phone!</strong>
       </mat-error>
     </mat-form-field>
 
@@ -84,7 +84,7 @@
       <input id="last-name" class="col-6" type="text" matInput
         formControlName="address" [errorStateMatcher]="matcher"[readonly]="display">
       <mat-error *ngIf="addEmployeeForm.controls.address.hasError('required')">
-        *Thêm <strong>địa chỉ!</strong>
+        *Add<strong>Address!</strong>
       </mat-error>
     </mat-form-field>
     <!-- <mat-form-field class="example-full-width" appearance="fill">
@@ -103,10 +103,10 @@
         [errorStateMatcher]="matcher"[readonly]="display">
       <mat-error *ngIf="addEmployeeForm.controls.age.hasError('min') ||
         addEmployeeForm.controls.age.hasError('max')">
-        *Tuổi phải lớn hơn 0 và nhỏ hơn 100!
+        *Age must be greater than 0 and less than 100!
       </mat-error>
       <mat-error *ngIf="addEmployeeForm.controls.age.hasError('required')">
-        *Thêm <strong>Tuổi!</strong>
+        *Add <strong>Age!</strong>
       </mat-error>
     </mat-form-field>
     <br>

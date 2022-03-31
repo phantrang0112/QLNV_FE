@@ -5,6 +5,7 @@ import { ErrorStateMatcher } from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import { Router } from '@angular/router';
 import { AppserviceService } from '../services/appservice.service';
+import { NotifyService } from '../services/notify.service';
 import { ServerhttpService } from '../services/serverhttp.service';
 import { HeaderComponent } from '../share/header/header.component';
 @Component({
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   message;
   loading=false;
   title="Login";
-  constructor(private serverHttp: ServerhttpService,private route: Router, private appService: AppserviceService) { }
+  constructor(private serverHttp: ServerhttpService,private route: Router, private appService: AppserviceService, private notify: NotifyService) { }
   ngOnInit() {
     this.appService.setTitel(this.title);
     // console.log(this.appService.getTitle())
@@ -37,14 +38,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('id',this.employeeAPI.id);
         localStorage.setItem('token',this.employeeAPI.token);
         localStorage.setItem('role',this.employeeAPI.role);
+        this.notify.notifySuccessToggerMessage('Login success!!!')
         this.route.navigate(['']);
-        this.message=this.employeeAPI.message;
-        this.appService.setMessage(this.message);
         this.appService.onSwitch();
       }
       else{
         this.formLogin.reset();
-        this.message=this.employeeAPI.message;
+        this.notify.notifiError('Error',this.employeeAPI.message);
       }
     })
   }

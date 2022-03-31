@@ -1,11 +1,15 @@
 
 <div class="container" style="margin-bottom: 25%;">
-    <p>Cập nhật ảnh!</p>
+    <h1>Update photo!</h1>
+    <br>
+    <br>
     <img src="/assets/{{url}}" style="width: 100px;height:
-    100px; object-fit :cover" alt=""/>
+    100px; object-fit :cover"  alt=""/>
     <hr>
     <br>
     <br>
-    <input type="file" (change)="changeImg($event)">
-    <button class="btn btn-primary"  (click)="uploadImg()"> Cập nhật ảnh</button>
+    <input  id="imageUpload" type="file" style="display: none" (change)="changeImg($event)">
+    <label for="imageUpload" class="btn btn-outline-success">Seleccionar imagenes</label>&nbsp;&nbsp;
+    <label>{{fileName?fileName:'No files are selected!!'}}</label>&nbsp;&nbsp;
+    <button class="btn btn-primary"  (click)="uploadImg()"> Update photo</button>
 </div>

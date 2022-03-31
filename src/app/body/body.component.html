@@ -18,7 +18,7 @@
       aria-hidden="true"></i></a> -->
   <div class="mat-elevation-z8">
 
-    <table mat-table [dataSource]="dataSource">
+    <table style="text-align: left;" mat-table [dataSource]="dataSource">
 
       <!-- Position Column -->
       <ng-container matColumnDef="stt">
@@ -40,7 +40,7 @@
 
       <!-- phone Column -->
       <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> Phone </th>
+        <th mat-header-cell *matHeaderCellDef > Phone </th>
         <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
       </ng-container>
 
@@ -68,8 +68,8 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination d-flex justify-content-md-end
           justify-content-center">
-          <li class="page-item"><a class="page-link" (click)="firtPage()">first</a></li>
-          <li class="page-item"><a class="page-link" (click)="prviousPage()">previous</a></li>
+          <li class="page-item"><a class="page-link" (click)="firtPage()">First</a></li>
+          <li class="page-item"><a class="page-link" (click)="prviousPage()">Previous</a></li>
           <!--                    <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
           <li class="page-item col-md-1 col-2 px-0">
             <!--                        <input class="form-control shadow-none rounded-0" type="text" placeholder="2/5">-->
@@ -86,10 +86,10 @@
           </li>
           <li class="page-item">
             <button class="btn btn-primary rounded-0"
-              (click)="findPaginnation()">next</button>
+              (click)="findPaginnation()">Next</button>
           </li>
           <!-- <li class="page-item"><a class="page-link" (click)="nextPage()">Trang kế</a></li> -->
-          <li class="page-item"><a class="page-link" (click)="lastPage()">last</a></li>
+          <li class="page-item"><a class="page-link" (click)="lastPage()">Last</a></li>
         </ul>
       </nav>
     </div>

@@ -21,7 +21,7 @@
         formControlName="password" [errorStateMatcher]="matcher1" />
       <mat-error
         *ngIf="formLogin.controls.password.hasError('minLength')!=null">
-        *Mật khẩu phải có ít nhất 8 kí tự
+        *Password must be at least 8 characters
       </mat-error>
       <mat-error *ngIf="formLogin.controls.password.hasError('required')">
         *add <strong>Password!</strong>
@@ -30,6 +30,6 @@
 
     <br>
     <br>
-    <button type="submit" class="btn btn-outline-danger text-center"> Login</button>
+    <button type="submit" class="btn btn-outline-danger text-center"   [disabled]="!formLogin.valid"> Login</button>
   </form>
 </div>

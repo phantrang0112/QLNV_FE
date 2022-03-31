@@ -1,9 +1,11 @@
 import { Component, Directive, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifyService } from 'src/app/services/notify.service';
 
 
 import { ServerhttpService } from 'src/app/services/serverhttp.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-upload-img',
@@ -26,10 +28,11 @@ export class UploadImgComponent implements OnInit {
   employee: Employee;
   id;
   img="avt.jpg";
+  fileName;
   // uploadImgForm = new FormGroup({
   //   fileImg: new FormControl("")
   // })
-  constructor(private service: ServerhttpService,private router: Router,private route:ActivatedRoute) { }
+  constructor(private service: ServerhttpService,private router: Router,private route:ActivatedRoute,private notify: NotifyService) { }
 
   ngOnInit() {
     this.url= this.img;
@@ -43,22 +46,37 @@ export class UploadImgComponent implements OnInit {
       // render.onload = (event: any) => {
       // }
       this.url = this.selectfile.name;
+      this.fileName=this.selectfile.name;
 
     }
 
   }
   uploadImg(){
-    let choice = confirm("Bạn muốn cập nhật ảnh ?");
-    // console.log(this.uploadImgForm.get('fileImg').value);
-    if (choice&& this.selectfile) {
-      this.service.uploadImg(this.selectfile,this.id).subscribe((data)=>{
-        this.employee=data;
-        this.router.navigate(['employee-form', this.employee.id]);
-      })
-    }
-    else{
+    Swal.fire({
+      title: 'Want to update your image?',
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      iconHtml: '<i class="fa fa-exclamation-circle" style="color: rgb(175, 175,29);width: 30px;boder:none"></i>',
+      customClass: {
+        icon: 'class-none'
+      },
+    }).then((result) => {
+      if(result.isConfirmed && this.selectfile){
+        this.service.uploadImg(this.selectfile,this.id).subscribe((data)=>{
+          this.employee=data;
+          this.notify.notifySuccessToggerMessage('Update image success')
+          this.router.navigate(['employee-form', this.employee.id]);
+        })
 
-    }
+      }
+      else{
+        this.notify.notifiError('Error','Update image failed')
+      }
+    })
+    // console.log(this.uploadImgForm.get('fileImg').value);
   }
 }
 export interface Employee {

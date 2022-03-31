@@ -7,8 +7,8 @@ export class LinkConfigService {
 
   constructor() { }
   private REST_API_SERVER = "http://localhost:3000";
-  private REST_API_SERVER1 = "http://localhost:8080";
-  getRestAPISpringBoot(){
+  private REST_API_SERVER1 = "http://localhost:8083";
+  public getRestAPISpringBoot(){
     return this.REST_API_SERVER1;
   }
   getRestAPIJson(){

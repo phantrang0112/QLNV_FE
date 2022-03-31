@@ -4,6 +4,7 @@ import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppserviceService } from '../services/appservice.service';
+import { NotifyService } from '../services/notify.service';
 import { ServerhttpService } from '../services/serverhttp.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   title = "List Employee";
 
 
-  constructor(private service: AppserviceService, private serverHttp: ServerhttpService, private router: Router) {
+  constructor(private service: AppserviceService, private serverHttp: ServerhttpService, private router: Router, private notify:NotifyService) {
     // this.employee= service.employee;
   }
   displayedColumns: string[] = ['stt', 'img', 'name', 'phone', 'age', 'about'];
@@ -47,7 +48,7 @@ export class BodyComponent implements OnInit, OnDestroy {
 
     // });
     this.token = localStorage.getItem('token');
-    this.indexPagination=1;
+    this.indexPagination = 1;
     this.serverHttp.getEmployeePage(this.indexPagination, this.page_size, this.token).subscribe((data) => {
       this.listEmployeePaging = data;
       this.numberItem = this.listEmployeePaging.total;
@@ -62,18 +63,6 @@ export class BodyComponent implements OnInit, OnDestroy {
     if (this.searchCheck == false) {
       this.serverHttp.getEmployeePage(index, page_size, this.token).subscribe((data) => {
         this.listEmployeePaging = data;
-        // if ((this.listEmployeePaging.total / page_size) > 1) {
-        //   if( this.totalPagination<(this.listEmployeePaging.total / this.page_size) ){
-        //     this.totalPagination = index + 1;
-        //   }
-        //   else{
-        //     this.totalPagination = index;
-        //   }
-
-        // }
-        // else {
-        //   this.totalPagination = index;
-        // }
         this.dataSource = this.listEmployeePaging.list;
       })
     }
@@ -83,7 +72,7 @@ export class BodyComponent implements OnInit, OnDestroy {
         this.dataSource = this.listEmployeePaging.list;
       })
     }
-    this.numberItem=this.listEmployeePaging.total;
+    this.numberItem = this.listEmployeePaging.total;
     return this.dataSource;
   }
   ngOnDestroy() {
@@ -111,68 +100,35 @@ export class BodyComponent implements OnInit, OnDestroy {
       Swal.fire({
         title: 'Are you sure you want to delete?',
         text: "You won't be able to revert this!",
-        icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes, delete it!',
+        iconHtml: '<i class="fa fa-exclamation-circle" style="color: rgb(175, 175,29);width: 30px;boder:none"></i>',
+        customClass: {
+          icon: 'class-none'
+        },
       }).then((result) => {
         if (result.isConfirmed) {
           this.serverHttp.deleteEmployee(employeeId).subscribe((data) => {
-            Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-            )
+            this.notify.notifySuccessToggerMessage('Your file has been deleted.');
             this.ngOnInit();
           }
           )
         }
-        else{
-          Swal.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
-          )
+        else {
+          this.notify.notifyCancel('Your imaginary file is safe :)');
         }
 
       })
     }
     else {
-      Swal.fire(
-        'Cancelled',
-        'not have access :)',
-        'error'
-      )
-      // this.message = 'not have access';
+      this.notify.blockPermission();
     }
 
 
   }
-  confirmDelete(){
-    let check:boolean;
-    Swal.fire({
-      title: 'Are you sure you want to delete?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      }
-      else{
-        check= false;
-      }
-    })
-    return check;
-  }
+
   //Lấy dữ liệu cho trang đầu tiên
   public getEmployeePaging(page, page_size) {
     this.dataSource = this.loadListEmployees(page, page_size);
@@ -180,9 +136,13 @@ export class BodyComponent implements OnInit, OnDestroy {
   }
   //Click chỉnh sửa nhân viên
   public editEmployee(employeeId) {
-    this.title = "Chỉnh sửa nhân viên";
-    this.service.setTitel(this.title);
-    this.router.navigate(['employee-form', employeeId]);// sử dụng dịch vụ router để chuyển hướng
+    if(localStorage.getItem('role') == 'ADMIN'){
+      this.router.navigate(['employee-form', employeeId]);// sử dụng dịch vụ router để chuyển hướng
+    }
+    else{
+      this.notify.blockPermission();
+    }
+
   }
   //thay đổi số trang
   indexPaginationChage(value: number) {
@@ -191,7 +151,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   //Trang kế tiếp
   findPaginnation() {
     if (this.totalPagination < (this.listEmployeePaging.total / this.page_size)) {
-      this.totalPagination ++;
+      this.totalPagination++;
       if (this.indexPagination < this.totalPagination) {
         this.indexPagination += 1;
       }
@@ -203,7 +163,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   //Trang đầu tiên
   firtPage() {
     this.indexPagination = 1;
-    this.totalPagination= this.indexPagination+1;
+    this.totalPagination = this.indexPagination + 1;
     this.dataSource = this.loadListEmployees(this.indexPagination, this.page_size);
   }
 
@@ -274,8 +234,8 @@ export interface Employee {
   img: string;
   pass: string;
   username: string;
-  password:string;
-  email:string;
+  password: string;
+  email: string;
 }
 export interface paging {
   total: number,
