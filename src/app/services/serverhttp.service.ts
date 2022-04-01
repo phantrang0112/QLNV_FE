@@ -20,17 +20,19 @@ export class ServerhttpService {
       // 'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token,
       // "Content-Type": "multipart/form-data",
+      // 'Accept': 'application/json',
+      // 'Content-Type': 'application/json',
     }),
   };
-  server:string;
+  server: string;
   constructor(private httpclient: HttpClient, private serverConfig: LinkConfigService) {
-    this.server=serverConfig.getRestAPISpringBoot();
+    this.server = serverConfig.getRestAPISpringBoot();
     console.log(this.server);
-   }
+  }
   public getEmployeePage(page: number, page_size: number, token: string) {
     this.token = token;
-    let string=  'Bearer ' + this.token;
-     let httpOptionss = {
+    let string = 'Bearer ' + this.token;
+    let httpOptionss = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token,
@@ -39,7 +41,7 @@ export class ServerhttpService {
 
     };
     if (this.token != null) {
-       this.httpOptions.headers.set('Authorization', string);
+      this.httpOptions.headers.set('Authorization', string);
       const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/get-page` + `?page=` + page + `&page-size=` + page_size;
       return this.httpclient.get<any>(url, httpOptionss).pipe(catchError(this.handleError));
     }
@@ -68,7 +70,7 @@ export class ServerhttpService {
   // Xóa 1 nhân viên thông qua id
   public deleteEmployee(employeeId: number) {
     const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/` + employeeId;
-    return this.httpclient.delete<any>(url,this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
+    return this.httpclient.delete<any>(url, this.httpOptions).pipe(catchError(this.handleError));// Nhớ import catchError
   }
 
   public login(data): Observable<any> {
@@ -84,22 +86,28 @@ export class ServerhttpService {
     const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/search/` + name + "/" + `?page=` + page + `&page-size=` + page_size;
     return this.httpclient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));
   }
-  public register(data){
+  public register(data) {
     const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/register`;
     return this.httpclient.post<any>(url, data).pipe(catchError(this.handleError))
   }
-  public changePass(data){
+  public changePass(data) {
     const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/change-pass`;
-    return this.httpclient.put<any>(url, data,this.httpOptions).pipe(catchError(this.handleError))
+    return this.httpclient.put<any>(url, data, this.httpOptions).pipe(catchError(this.handleError))
   }
-  public uploadImg(data,id:number){
+  public uploadImg(data, id: number) {
     // this.httpOptions.headers.append( 'Content-Type',"multipart/form-data");
     const formData = new FormData();
-    formData.append('file',data);
+    formData.append('file', data);
     // this.httpOptions.headers.set("Content-Type", "multipart/form-data");
-    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/upload/`+id;
-    return this.httpclient.post<any>(url,formData,{headers:this.httpOptions.headers,reportProgress: true,
-      responseType: 'json'}).pipe(catchError(this.handleError))
+    const url = `${this.serverConfig.getRestAPISpringBoot()}/Employee/upload/` + id;
+    return this.httpclient.post<any>(url, formData, {
+      headers: this.httpOptions.headers, reportProgress: true,
+      responseType: 'json'
+    }).pipe(catchError(this.handleError))
+  }
+  public verifyEmail(email) {
+    const url = `${this.serverConfig.getRestAPIVerifyEmail()}` + email;
+    return this.httpclient.get<any>(url)
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

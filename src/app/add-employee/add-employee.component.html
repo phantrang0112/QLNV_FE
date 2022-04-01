@@ -58,13 +58,14 @@
       <mat-label>Email</mat-label>
       <input class="col-6" id="last-name" type="email" matInput
         formControlName="email" [errorStateMatcher]="matcher" [readonly]="display">
-      <mat-error *ngIf="addEmployeeForm.controls.email.hasError('email')">
+        <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('required')">
+          *Add <strong>email</strong>
+        </mat-error>
+        <mat-error *ngIf="addEmployeeForm.controls.email.hasError('email')||addEmployeeForm.controls.email.hasError('pattern')">
         *Email must be in the form @
       </mat-error>
 
-      <mat-error *ngIf="addEmployeeForm.controls.phone.hasError('required')">
-        *Add <strong>email</strong>
-      </mat-error>
+
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Phone</mat-label>

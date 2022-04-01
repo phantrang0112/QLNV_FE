@@ -54,14 +54,37 @@ export class NotifyService {
       icon: 'success',
       title: title ,
       text: text,
+      timer:3500,
     }).then((result)=>{
       if(result.isConfirmed){
         this.route.navigate([linkRouter]);
       }
     })
   }
-  notifySuccessNotLink(link,text){
-
+  notifySuccessNotLink(title,text){
+    Swal.fire({
+      title:title,
+      text:text,
+      icon:'success',
+      iconColor:'#0dd4b9',
+    })
+  }
+  notifyErrorToggerMessage(titel){
+    let error= Swal.mixin({
+      toast: true,
+      position: 'bottom-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    error.fire({
+      title: titel,
+      icon: 'error',
+    })
   }
   notifyCancel(text){
     Swal.fire({

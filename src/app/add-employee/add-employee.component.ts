@@ -30,7 +30,7 @@ export class AddEmployeeComponent implements OnInit {
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    email: new FormControl('',[Validators.required,Validators.email])
+    email: new FormControl('',[Validators.required,Validators.email,Validators.pattern(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])
   });
   constructor(private serverHttp: ServerhttpService, private route: ActivatedRoute, private router: Router, private appService: AppserviceService,private notify:NotifyService) {
   }

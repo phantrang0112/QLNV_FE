@@ -1,4 +1,11 @@
 .container {
   width: 75%;
   max-width: 960px;
+
+}
+footer{
+  position: sticky;
+  top:100%;
+  bottom: 0%;
+  padding: 1rem;
 }

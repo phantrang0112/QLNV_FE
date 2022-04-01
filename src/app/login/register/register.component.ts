@@ -21,10 +21,11 @@ export class RegisterComponent implements OnInit {
     address: new FormControl(null,[Validators.required]),
     name: new FormControl(null,[Validators.required]),
     age: new FormControl(null,[Validators.required]),
-    email: new FormControl(null,[Validators.required,Validators.email])
+    email: new FormControl(null,[Validators.required,Validators.email,Validators.pattern( /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])
   })
   title="Register";
   message="";
+  emailVerify: emailVerify;
   constructor(private service: ServerhttpService, private route: Router, private appService: AppserviceService,private notify: NotifyService) { }
 
   ngOnInit() {
@@ -34,15 +35,43 @@ export class RegisterComponent implements OnInit {
     let newEmployee: Employee;
     newEmployee=this.formRegister.value;
     newEmployee.img='avt.jpg';
-    this.service.register(newEmployee).subscribe((data)=>{
-      if(data!=null){
-        this.notify.notifySuccess('Successful Registration','form-login','Please check your email to get the password');
+    this.service.verifyEmail(newEmployee.email).subscribe((data)=>{
+      this.emailVerify=data;
+      console.log(data);
+      if(this.emailVerify!=null){
+        if(this.emailVerify.status>0){
+          this.service.register(newEmployee).subscribe((data)=>{
+            if(data!=null){
+              this.notify.notifySuccess('Successful Registration','form-login','Please check your email to get the password');
+              }
+              else{
+                this.notify.notifiError('Error',"Please re-register");
+              }
+          })
+          this.formRegister.reset();
         }
         else{
-          this.notify.notifiError('Error',"Please re-register");
+          this.notify.notifiError('Register fail!',this.emailVerify.status_description)
         }
+      }
     })
-    this.formRegister.reset();
+    // this.notify.notifySuccess('Successful Registration','form-login','Please check your email to get the password');
+    // this.service.register(newEmployee).subscribe((data)=>{
+    //   if(data!=null){
+    //     this.notify.notifySuccess('Successful Registration','form-login','Please check your email to get the password');
+    //     }
+    //     else{
+    //       this.notify.notifiError('Error',"Please re-register");
+    //     }
+    // })
+    // this.formRegister.reset();
   }
 }
 
+export interface emailVerify {
+  email:string,
+  status: number,
+  status_description: string,
+  smtp_code: number,
+  smtp_log: string
+}

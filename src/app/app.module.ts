@@ -24,6 +24,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UploadImgComponent } from './add-employee/upload-img/upload-img.component';
 import { HomeComponent } from './home/home.component';
 import { NotifyComponent } from './notify/notify.component';
+import { CenterDirective } from './directives/center.directive';
 @NgModule({
   declarations: [
             AppComponent,
@@ -39,6 +40,7 @@ import { NotifyComponent } from './notify/notify.component';
             UploadImgComponent,
             HomeComponent,
             NotifyComponent,
+            CenterDirective,
           ],
   imports: [
             BrowserModule,
