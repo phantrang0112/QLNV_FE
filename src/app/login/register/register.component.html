@@ -23,7 +23,6 @@
                   <label class="form-label" >Username</label>
                   <input type="text"class="form-control form-control-lg" formControlName="username" />
                   <small appMyColor *ngIf="formRegister.get('username').invalid && formRegister.get('username').touched">username is required</small>
-
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label" >Phone</label>
@@ -45,11 +44,8 @@
                 <div class="d-flex justify-content-center">
                   <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                 </div>
-
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="form-login" class="fw-bold text-body"><u>Login here</u></a></p>
-
               </form>
-
             </div>
           </div>
         </div>

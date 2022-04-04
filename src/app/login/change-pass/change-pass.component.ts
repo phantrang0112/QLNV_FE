@@ -36,7 +36,7 @@ export class ChangePassComponent implements OnInit {
         localStorage.setItem('username', this.employeeChange.username);
         localStorage.setItem('id',this.employeeChange.id);
         localStorage.setItem('token',this.employeeChange.token);
-        this.notify.notifySuccess('Success','',this.employeeChange.message);
+        this.notify.notifySuccess('Success','home',this.employeeChange.message);
              }
       else{
         this.notify.notifiError('Error',this.employeeChange.message);

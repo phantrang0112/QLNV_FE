@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'form-changePass', component: ChangePassComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}] },
   { path: 'change-img/:id', component:UploadImgComponent,canActivate:[AuthGuard],children:[{path:'header',component:HeaderComponent}]  },
   { path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent},
   {path:'test', component: NotifyComponent}
   // { path: '**', pathMatch:'full', redirectTo: 'routePath' }
 ];
